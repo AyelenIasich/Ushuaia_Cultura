@@ -22,6 +22,7 @@
 
 
   @yield('tablaArtistas')
+
   @yield('form')
 
 
