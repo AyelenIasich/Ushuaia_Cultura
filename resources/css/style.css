@@ -1,0 +1,30 @@
+/* :root {
+    --main-color-light: #6a59d1;
+    --main-color-dark: #7c6cd9;
+    --link-navbar-color: #757575;
+  } */
+
+
+/* ============= Form ================ */
+h1{
+    background: red !important;
+}
+/*
+.form {
+    background: #fff;
+    border-radius: 10px;
+    z-index: 1;
+    color: #3c3b3b;
+    box-shadow: 0 5px 10px -5px rgba(0 0 0 / 30%);
+  } */
+
+  /* ============= Form Inputs ================ */
+  /* .form input {
+    color: #3c3b3b;
+    font-family: "Poppins";
+    cursor: pointer;
+  }
+
+  .form label {
+    cursor: pointer;
+  } */

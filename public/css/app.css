@@ -1,0 +1,71 @@
+/* =============== General Settings =========== */
+
+* {
+    font-family: "Poppins";
+}
+
+:root {
+    --main-color-light: #6a59d1;
+    --main-color-dark: #7c6cd9;
+    --link-navbar-color: #757575;
+}
+.dark{
+    background-color: #1A1525;
+}
+
+/* ============= Form ================ */
+
+.form {
+    background: #fff;
+    border-radius: 10px;
+    z-index: 1;
+    color: #3c3b3b;
+    box-shadow: 0 5px 10px -5px rgba(0 0 0 / 30%);
+}
+
+/* ============= Form Inputs ================ */
+.form input {
+    color: #3c3b3b;
+    font-family: "Poppins";
+    cursor: pointer;
+}
+
+.form label {
+    cursor: pointer;
+}
+
+
+/* ============= boton volver ================ */
+
+.btn-outline-volver {
+    border-color: var(--main-color-light) !important;
+    color: var(--main-color-light) !important;
+    font-weight: 500 !important;
+    width: 100%;
+  }
+  .btn-outline-volver:hover {
+    background-color: var(--main-color-light) !important;
+    color: white !important;
+  }
+
+/* ============= boton guardar ================ */
+.btn-outline-guardar {
+    border: none;
+    color: white !important;
+    font-weight: 500 !important;
+    width: 100%;
+
+    box-shadow: inset 0 0 0 0 rgb(203, 114, 194) !important;
+    transition: ease-out 0.5s;
+    background: rgb(203, 114, 194);
+    background: linear-gradient(
+      53deg,
+      rgba(203, 114, 194, 1) 0%,
+      rgba(143, 116, 212, 1) 56%,
+      rgba(106, 89, 209, 1) 100%
+    );
+  }
+
+  .btn-outline-guardar:hover {
+    box-shadow: inset 300px 0 0 0 rgb(203, 114, 194) !important;
+  }
