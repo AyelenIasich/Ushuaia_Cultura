@@ -1,6 +1,8 @@
 @extends('theme.base')
 
 @section('tablaArtistas')
+
+
     <table class="table table-light">
         <thead class="thead-light">
             <tr>

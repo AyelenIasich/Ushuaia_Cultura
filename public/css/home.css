@@ -1,0 +1,145 @@
+/* =============== General Settings =========== */
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    /* Main theme colors */
+    --fist-color: #0e3431;
+    --second-color: #6a59d1;
+    --third-color: #777;
+    --white-color: #fff;
+    /* Hover colors */
+    --hover-color: #614fd0;
+
+    /* Background colors */
+    --body-bg-color: #fefefe;
+    --card-bg-color: #fff;
+    --modal-bg-color: #fff;
+    --bg-transparrent-color: rgba(0, 0, 0, 0.1);
+    --transparent-color-01: rgba(0, 0, 0, 0.1);
+    --transparent-color-02: rgba(106, 89, 209, 0.1);
+    --line-color: #d7d7d7;
+
+    /*  */
+
+    --color-filter: invert(1);
+
+    /* Box shadows */
+
+    --box-shadow: 0px 0px 20px rgba(0 0 0 /10%);
+
+    /* Font size */
+    --small-font-size: 0.9em;
+    --normal-font-size: 1em;
+
+    /* Scroll bar colors */
+
+    --scroll-bar-color: #c5cadf;
+    --scroll-thumb-color: #70768a;
+    --scroll-thumb-hover-color: #454f6b;
+
+    --main-color-light: #6a59d1;
+    --main-color-dark: #7c6cd9;
+    --link-navbar-color2: #fff;
+    --link-navbar-color: #757575;
+}
+
+body {
+    color: var(--first-color);
+    background: var(--body-bg-color);
+    transition: 0.5 ease;
+}
+/* =============== Scroll Bar =========== */
+::-webkit-scrollbar {
+    width: 10px;
+    background: var(--scroll-bar-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb-color);
+    border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll-thumb-hover-color);
+}
+
+/* ============= Header ================ */
+.nav-item a {
+    color: var(--link-navbar-color2)!important;
+}
+.nav-item a:hover {
+    color: var(--main-color-light) !important;
+}
+.ushuaia {
+    font-weight: 400 !important;
+    color: #6eaeae !important;
+    font-size: 22px;
+}
+
+.cultura{
+    font-weight: 600 !important;
+    color: var(--white-color) !important;
+    font-size: 22px;
+}
+
+.nav {
+    z-index: 2 !important;
+    transition: 0.6 ease !important;
+}
+.nav-item a,
+.navbar .logo {
+    font-weight: 400;
+}
+.navbar-brand {
+    font-size: 0.9em;
+
+}
+main {
+    z-index: -1;
+}
+
+
+
+/* ============= Button Login ================ */
+.btn-outline-success {
+    border-color: #6eaeae!important;
+    color:  #6eaeae!important;
+    font-weight: 500!important;
+  }
+  .btn-outline-success:hover {
+    background-color: #6eaeae!important;
+    color: white!important;
+  }
+/* ============= Main ================ */
+
+#main .carousel-inner img {
+    max-height: 100vh;
+    object-fit: cover;
+    filter: grayscale(70%);
+}
+
+#carousel {
+    position: relative;
+}
+
+#carousel .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--white-color);
+    z-index: 1 !important;
+}
+
+#carousel .overlay .container,
+#carousel .overlay .row {
+    height: 100%;
+}
