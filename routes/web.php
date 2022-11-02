@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('artista.home');
+    return view('welcome');
 });
 
 Route::resource('artista', ArtistaController::class);
