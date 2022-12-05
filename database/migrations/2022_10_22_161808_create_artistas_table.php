@@ -14,15 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('artistas', function (Blueprint $table) {
-            $table->id();
-            $table->string('Nombre');
-            $table->string('Apellido');
-            $table->string('Instagram');
-            $table->string('Facebook');
-            $table->string('Correo');
-            $table->longText('Descripcion');
-            $table->string('Subtitulo');
-            $table->string('Foto');
+            $table->engine = "InnoDB";
+            $table->bigIncrements('id');
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->text('cover_carousel');
+            $table->longText('descripcion');
+            $table->string('correo');
+            $table->string('instagram')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('titulo')->nullable();
+            $table->string('subtitulo')->nullable();
             $table->timestamps();
         });
     }
