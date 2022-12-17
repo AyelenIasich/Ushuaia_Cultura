@@ -6,10 +6,10 @@ use App\Models\Home;
 use App\Models\Home_images;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Contracts\Validation\ValidationException;
-
-
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
@@ -35,7 +35,7 @@ class MainController extends Controller
 
     public function store(Request $request)
     {
-        $campos=[ 'titulo'=> 'required|string|max:350', 'descripcion'=> 'required|string|max:400', 'images'=> 'required',];  ;
+        $campos = ['titulo' => 'required|string|max:350', 'descripcion' => 'required|string|max:400', 'images' => 'required|',];;
         $this->validate($request, $campos);
 
         $home = new Home(['titulo' => $request->titulo, 'descripcion' => $request->descripcion,]);
@@ -45,12 +45,31 @@ class MainController extends Controller
         if ($request->hasFile("images")) {
             $files = $request->file("images");
             foreach ($files as $file) {
-                $imageName = time() . '_' . $file->getClientOriginalName();
-                $request['home_id'] = $home->id;
-                $request['image'] = $imageName;
-                $file->move(\public_path("/carousel"), $imageName);
-                Home_images::create($request->all());
+                $imageName =  Str::random(10) . $file->getClientOriginalName();
+                $ruta = storage_path() . '\app\public\carousel/' . $imageName;
+                $ruta_storage = '/storage/carousel/' . $imageName;
+                Image::make($file)->resize(1200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($ruta);
+
+
+                $home_images = new Home_images([
+                    'home_id' =>  $home->id,
+                    'image' =>  $ruta_storage,
+
+                ]);
+                $home_images->save();
             }
+
+            // Antiguo
+            // $files = $request->file("images");
+            // foreach ($files as $file) {
+            //     $imageName = time() . '_' . $file->getClientOriginalName();
+            //     $request['home_id'] = $home->id;
+            //     $request['image'] = $imageName;
+            //     $file->move(\public_path("/carousel"), $imageName);
+            //     Home_images::create($request->all());
+            //}
         }
         return redirect("/home/");
     }
@@ -64,10 +83,10 @@ class MainController extends Controller
 
     public function update(Request $request, $id)
     {
-        $campos=[ 'titulo'=> 'required|max:350', 'descripcion'=> 'required|string|max:400', ];
+        $campos = ['titulo' => 'required|max:350', 'descripcion' => 'required|string|max:400',];
 
-        if($request->hasFile("images")){
-           $campos= ['images'=> 'required',];
+        if ($request->hasFile("images")) {
+            $campos = ['images' => 'required',];
         }
         $this->validate($request, $campos);
 
@@ -77,17 +96,32 @@ class MainController extends Controller
             "descripcion" => $request->descripcion,
         ]);
 
+
         if ($request->hasFile("images")) {
             $files = $request->file('images');
             foreach ($files as $file) {
-                $imageName = time() . '_' . $file->getClientOriginalName();
-                $request["home_id"] = $id;
-                $request["image"] = $imageName;
-                $file->move(\public_path("carousel"), $imageName);
-                Home_images::create($request->all());
+                $imageName =  Str::random(10) . $file->getClientOriginalName();
+                $ruta = storage_path() . '\app\public\carousel/' . $imageName;
+                $ruta_storage = '/storage/carousel/' . $imageName;
+                Image::make($file)->resize(1200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($ruta);
+
+                $home_images = new Home_images([
+                    'home_id' =>  $home->id,
+                    'image' =>  $ruta_storage,
+
+                ]);
+                $home_images->save();
             }
+
+
+
+
         }
-        return redirect("/");
+
+
+        return redirect("/")->with('actualizado', 'ok');
     }
 
 
@@ -98,8 +132,9 @@ class MainController extends Controller
         $homes = Home::findOrFail($id);
         $images = Home_images::where("home_id", $homes->id)->get();
         foreach ($images as $image) {
-            if (File::exists("carousel/" . $image->image)) {
-                File::delete("carousel/" . $image->image);
+            $urlImages = str_replace('storage', 'public', $image->image);
+            if (Storage::exists($urlImages)) {
+                Storage::delete($urlImages);
             }
         }
         $homes->delete();
@@ -108,13 +143,23 @@ class MainController extends Controller
 
     public function deleteimage($id)
     {
-        $images = Home_images::findOrFail($id);
-        if (File::exists("carousel/" . $images->image)) {
-            File::delete("carousel/" . $images->image);
+
+        $images = Home_images::find($id);
+        $url = str_replace('storage', 'public', $images->image);
+        if (Storage::exists($url)) {
+            Storage::delete($url);
         }
         Home_images::find($id)->delete();
         return back();
+
+
+
+        // FUNCION ANTIGUA DE BORRADO SIN EL STORAGE
+        // $images = Home_images::findOrFail($id);
+        // if (File::exists("carousel/" . $images->image)) {
+        //     File::delete("carousel/" . $images->image);
+        // }
+        // Home_images::find($id)->delete();
+        // return back();
     }
-
-
 }

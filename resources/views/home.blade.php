@@ -11,8 +11,10 @@
     {{-- <link rel="stylesheet" href="{{ asset('/css/galeria.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('/css/index.css') }}">
     {{-- Material Icons --}}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     {{-- Fonts  --}}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,7 +25,12 @@
     {{-- Bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    {{-- JQUERY --}}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Ushuaia Cultura</title>
 </head>
 
@@ -31,56 +38,64 @@
     @include('components.navbar')
     <div class="container-fluid p-0">
         @include('components.theme-button')
-        @include('components.mainCarousel')
-
+         @include('components.mainCarousel')
     </div>
-    @if (isset(Auth::user()->name))
-    <div class="container mt-5 pt-5">
-
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Bienvenida') }}</div>
-
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                            {{ __('Bienvenido ' . Auth::user()->name . '. Espero que tengas una buena experiencia en nuestro sitio.') }}
 
 
-                    </div>
-                </div>
-            </div>
-        </div>
-</div>
-@endif
+
+
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example2">
+        @include('components.msgBienvenida')
         @include('components.anotherCarousel')
         @include('components.eventosList')
+
+
+        @include('components.mapa')
+        @include('components.murales')
+
         @include('components.footer')
+    </div>
+    @yield('content')
 
 
-        <!-- Swiper JS -->
-        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 
 
-        <script src="{{ URL::asset('js/theme.js') }}"></script>
+    <script src="{{ URL::asset('js/theme.js') }}"></script>
+    <script src="{{ URL::asset('js/wishlist.js') }}"></script>
+
+    {{-- Script Personal --}}
+    <script type="text/javascript" language="Javascript">
+        document.oncontextmenu = function() {
+            return false
+        }
+    </script>
+    <script src="{{ URL::asset('js/swiper.js') }}"></script>
+
+    {{-- Script Bootstrap --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    </script>
+        <script src="{{ URL::asset('js/pop.js') }}"></script>
+    {{-- JQuery --}}
+    {{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script> --}}
+    {{-- Alertas sweet --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-
-        <script type="text/javascript" language="Javascript">
-            document.oncontextmenu = function() {
-                return false
-            }
-        </script>
-        <script src="{{ URL::asset('js/swiper.js') }}"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-        </script>
+    @if (session('eliminar') == 'eliminado')
+        <script src="{{ URL::asset('js/alerta-borrado.js') }}"></script>
+    @endif
+    <script src="{{ URL::asset('js/alerta-eliminacion.js') }}"></script>
+    @if (session('actualizado') == 'ok')
+        <script src="{{ URL::asset('js/alerta-actualizado.js') }}"></script>
+    @endif
+    @if (session('creado') == 'ok')
+        <script src="{{ URL::asset('js/alerta-creado.js') }}"></script>
+    @endif
 </body>
 
 </html>

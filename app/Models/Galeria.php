@@ -11,9 +11,9 @@ class Galeria extends Model
     static $rules = [
 		'artista_id' => 'required',
 		'image_obra' => 'required',
-		'titulo_obra' => 'required',
-    ];
 
+    ];
+    protected $dates = ['fecha_creacion'];
     protected $fillable = ['artista_id','image_obra','titulo_obra','descripcion_obra','fecha_creacion'];
 
     public function artista()

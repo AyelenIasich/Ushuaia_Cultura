@@ -2,128 +2,168 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artist;
 use App\Models\Artista;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use App\Models\Image;
+use App\Models\ImageArtista;
 use App\Models\Galeria;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 
 class ArtistaController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('can:artistas.index')->only('index');
+        $this->middleware('can:artistas.create')->only('create', 'store');
+        $this->middleware('can:artistas.edit')->only('edit', 'update');
+        $this->middleware('can:artistas.destroy')->only('destroy');
+    }
+
+    public function index()
+    {
+        $artista = Artista::where('user_id', auth()->user()->id)->first();
+        // $artista_id= $artista->id;
+
+        if(isset($artista->id)){
+            $artistaObras['artistaObras'] = Galeria::orderBy('artista_id')->where('artista_id', $artista->id)->get();
+        }
+
+        if(isset($artista->id)){
+            return view('perfil-artista.miperfil', compact('artista', 'artistaObras'));
+        }
+
+
+
+        // return view('perfil-artista.miperfil', compact('artista', 'artistaObras'));
+        return view('perfil-artista.miperfil', compact('artista'));
+    }
 
     public function create()
     {
+        // $artistaUser = Artist::where('user_id', auth()->user()->id)->first();
         $artista = new Artista();
+        // return view('artista.create', compact('artista', 'artistaUser'));
         return view('artista.create', compact('artista'));
     }
 
 
     public function store(Request $request)
     {
-        $campos=[ 'nombre'=> 'required|string|max:100',
-        'apellido'=> 'required|string|max:100',
-         'cover_carousel'=> 'required',
-         'descripcion'=> 'required|string|max:500',
-         'correo'=> 'required|string|email',
-         'images'=> 'required',
+        $campos = [
+            'nombre' => 'required|string|max:100',
+            'cover_carousel' => 'required',
+            'descripcion' => 'required|string|max:500',
+            'correo' => 'required|string|email',
+            'images' => 'required',
 
         ];
         $this->validate($request, $campos);
-        request()->validate(Artista::$rules);
-
-
 
 
         if ($request->hasFile('cover_carousel')) {
             $file = $request->file('cover_carousel');
-            $imageName = time() . '_' . $file->getClientOriginalName();
-            $file->move(\public_path("cover/"), $imageName);
-            $Artista = new Artista([
+            $imageName =  Str::random(10) . $file->getClientOriginalName();
+            $ruta = storage_path() . '\app\public\cover/' . $imageName;
+            $ruta_storage = '/storage/cover/' . $imageName;
+            Image::make($file)->resize(1200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($ruta);
+
+
+            $artista = new Artista([
+                'user_id' => auth()->user()->id,
                 'nombre' => $request->nombre,
-                'apellido' => $request->apellido,
-                'cover_carousel' => $imageName,
+                'cover_carousel' => $ruta_storage,
                 'descripcion' => $request->descripcion,
                 'correo' => $request->correo,
                 'instagram' => $request->instagram,
                 'facebook' => $request->facebook,
                 'titulo' => $request->titulo,
                 'subtitulo' => $request->subtitulo,
+
             ]);
-            $Artista->save();
+            $artista->save();
+            $listaArtista = new Artist([
+                'user_id' => auth()->user()->id,
+                'nombre' => $request->nombre,
+            ]);
+            $listaArtista->save();
         }
 
         if ($request->hasFile("images")) {
             $files = $request->file("images");
             foreach ($files as $file) {
-                $imageName = time() . '_' . $file->getClientOriginalName();
-                $request['artista_id'] = $Artista->id;
-                $request['image'] = $imageName;
-                $file->move(\public_path("/images"), $imageName);
-                Image::create($request->all());
+                $imageName =  Str::random(10) . $file->getClientOriginalName();
+                $ruta = storage_path() . '\app\public\images/' . $imageName;
+                $ruta_storage = '/storage/images/' . $imageName;
+                Image::make($file)->resize(1200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($ruta);
+
+                $images = new ImageArtista([
+                    'artista_id' =>  $artista->id,
+                    'image' =>  $ruta_storage,
+
+                ]);
+                $images->save();
             }
         }
 
-        return redirect('/#artistas')->with('success', 'Nuevo artista creado.');
+
+        return view('artista.edit', compact('artista'))->with('creado', 'ok');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Artista  $artista
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function show($id)
     {
         $artista = Artista::find($id);
-        $artista_id=$id;
-        $artistaObras['artistaObras']= Galeria::orderBy('artista_id')->where('artista_id',$artista_id)->get();
-        // return view('artista.show', compact('artista'));
+        $artista_id = $id;
+        $artistaObras['artistaObras'] = Galeria::orderBy('artista_id')->where('artista_id', $artista_id)->get();
         return view('artista.show', compact('artista', 'artistaObras'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Artista  $artista
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
+        // $artistaUser = Artist::where('user_id', auth()->user()->id)->first();
         $artista = Artista::find($id);
 
+        // return view('artista.edit', compact('artista', 'artistaUser'));
         return view('artista.edit', compact('artista'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Artista  $artista
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
-    // , Artista $artista
+
     {
 
         $artista = Artista::findOrFail($id);
-        // request()->validate(Artista::$rules);
+        $url = str_replace('storage', 'public', $artista->cover_carousel);
+        $ruta_storage = $artista->cover_carousel;
 
         if ($request->hasFile("cover_carousel")) {
-            if (File::exists("cover/" . $artista->cover_carousel)) {
-                File::delete("cover/" . $artista->cover_carousel);
+            if (Storage::exists($url)) {
+                Storage::delete($url);
             }
-            $file = $request->file("cover_carousel");
-            $artista->cover_carousel = time() . "_" . $file->getClientOriginalName();
-            $file->move(\public_path("/cover"), $artista->cover_carousel);
-            $request['cover_carousel'] = $artista->cover_carousel;
+            $file = $request->file('cover_carousel');
+            $imageName =  Str::random(10) . $file->getClientOriginalName();
+            $ruta = storage_path() . '\app\public\cover/' . $imageName;
+            $ruta_storage = '/storage/cover/' . $imageName;
+            Image::make($file)->resize(1200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($ruta);
         }
 
         $artista->update([
+            'user_id' => auth()->user()->id,
             'nombre' => $request->nombre,
-            'apellido' => $request->apellido,
-            'cover_carousel' => $artista->cover_carousel,
+            'cover_carousel' => $ruta_storage,
             'descripcion' => $request->descripcion,
             'correo' => $request->correo,
             'instagram' => $request->instagram,
@@ -133,50 +173,95 @@ class ArtistaController extends Controller
         ]);
 
         if ($request->hasFile("images")) {
-            $files = $request->file('images');
+            $files = $request->file("images");
             foreach ($files as $file) {
-                $imageName = time() . '_' . $file->getClientOriginalName();
-                $request["artista_id"] = $id;
-                $request["image"] = $imageName;
-                $file->move(\public_path("images"), $imageName);
-                Image::create($request->all());
+                $imageName =  Str::random(10) . $file->getClientOriginalName();
+                $ruta = storage_path() . '\app\public\images/' . $imageName;
+                $ruta_storage = '/storage/images/' . $imageName;
+                Image::make($file)->resize(1200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($ruta);
+
+                $images = new ImageArtista([
+                    'artista_id' =>  $artista->id,
+                    'image' =>  $ruta_storage,
+
+                ]);
+                $images->save();
             }
         }
 
 
-
-        // $artista->update($request->all());
-        return redirect('/#artistas')->with('success', 'Información de artista actualizado');
-
+        return redirect()->back()->with('actualizado', 'ok');
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Artista  $artista
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        $artista = Artista::find($id)->delete();
 
-        return redirect('/#artistas')->with('success', 'Información del artista eliminado');
+        $Artista = Artista::findOrFail($id);
+        $url = str_replace('storage', 'public', $Artista->cover_carousel);
+        if (Storage::exists($url)) {
+            Storage::delete($url);
+        }
+
+        // if (Auth::check()) {
+        //     if (auth()->user()->id !== 1 ) {
+        //         $artistaUser = Artist::where('user_id', auth()->user()->id)->first();
+        //         $artistaUser->delete();
+        //     }
+        // }
+
+
+        $images = ImageArtista::where("artista_id", $Artista->id)->get();
+
+        foreach ($images as $image) {
+            $urlImages = str_replace('storage', 'public', $image->image);
+
+            Storage::delete($urlImages);
+        }
+
+
+
+
+        $Artista->delete();
+        return redirect('/#artistas')->with('eliminar', 'eliminado');
     }
     public function deletecover($id)
     {
         $cover_carousel = Artista::findOrFail($id)->cover_carousel;
-        if (File::exists("cover/" . $cover_carousel)) {
-            File::delete("cover/" . $cover_carousel);
+        $url = str_replace('storage', 'public', $cover_carousel);
+        if (Storage::exists($url)) {
+            Storage::delete($url);
         }
+
+
+
+
+        // $cover_carousel = Artista::findOrFail($id)->cover_carousel;
+        // if (File::exists("cover/" . $cover_carousel)) {
+        //     File::delete("cover/" . $cover_carousel);
+        // }
         return back();
     }
 
     public function deleteimage($id)
     {
-        $images = Image::findOrFail($id);
-        if (File::exists("images/" . $images->image)) {
-            File::delete("images/" . $images->image);
+
+        $images = ImageArtista::findOrFail($id);
+        $url = str_replace('storage', 'public', $images);
+        if (Storage::exists($url)) {
+            Storage::delete($url);
         }
-        Image::find($id)->delete();
+        ImageArtista::find($id)->delete();
+
+
+
+        // Anterior funcion
+        // $images = ImageArtista::findOrFail($id);
+        // if (File::exists("images/" . $images->image)) {
+        //     File::delete("images/" . $images->image);
+        // }
+        // ImageArtista::find($id)->delete();
         return back();
     }
 }

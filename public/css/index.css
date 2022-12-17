@@ -3,9 +3,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,300;0,400;0,900;1,300;1,700&display=swap");
 
 :root {
-
+    --main-popover-dropdown: hsl(0, 0%, 100%);
     --border: 0.5px solid #a9afc3;
     --main-card: hsl(0, 0%, 100%);
+    --main-card-dropdown: hsl(0, 0%, 100%);
+    --main-card-dropdown-line: #777;
     --color-main-card: #777;
     /* hover carousel de artistas */
     --clr-neutral-900: hsl(207, 19%, 9%);
@@ -26,7 +28,7 @@
 
     /* color antiguo--body-bg-color: #1a1525; */
 
-    --body-new-color:  #fefefe;
+    --body-new-color: #fefefe;
     --body-gradient: #fefefe;
     --body-bg-color: #fefefe;
     --card-bg-color: #fff;
@@ -60,32 +62,36 @@
 
     --link-navbar-color: #757575;
 
-
     /* Inputs */
     --bg-input: rgba(70, 69, 69, 0.1);
     --bg-form-input: rgba(255, 255, 255, 0.9);
-    --font-form-input:#3c3b3b;
+    --font-form-input: #3c3b3b;
 
     /* ingresar background */
-    --bg-card-form:linear-gradient(
+    --bg-card-form: linear-gradient(
         93deg,
         rgba(143, 177, 186, 0.5) 0%,
         rgba(110, 174, 174, 0.5) 45%,
         rgba(62, 141, 166, 0.5) 100%
     );
-    --bg-card-form-base:rgba(255, 255, 255, 0.9);
+    --bg-card-form-base: rgba(255, 255, 255, 0.9);
 
     /* botones */
 
-    --btn-info-border:rgba(62, 141, 166, 1);
+    --btn-info-border: rgba(62, 141, 166, 1);
     /* Font-colors */
     --text-card-grey: #777;
+    --important-blue: #6eaeae;
 }
 
 .dark-theme {
-    --border:none;
+    --main-popover-dropdown: rgba(110, 174, 174, 1) ;
+    /* Bordes de las cards */
+    --border: none;
     /* Main theme colors */
     --main-card: hsl(0 0% 100% / 0.1);
+    --main-card-dropdown: rgba(42, 26, 79, 0.6);
+    --main-card-dropdown-line: rgba(118, 83, 201, 0.6);
     --color-main-card: #d7d7d7;
     --first-color: #fff;
     --second-color: #6a59d1;
@@ -98,7 +104,7 @@
 
     /* Background colors */
     --body-new-color: rgb(15, 29, 53);
-    --body-gradient:linear-gradient(
+    --body-gradient: linear-gradient(
         135deg,
         rgba(15, 29, 53, 1) 25%,
         rgba(42, 26, 79, 1) 60%,
@@ -129,21 +135,21 @@
 
     --link-navbar-color2: #d7d7d7;
 
-      /* Inputs form registro & login */
-      --bg-input: rgba(255, 255, 255, 0.3);
-      --bg-form-input:rgba(255, 255, 255, 0.3);
-      --font-form-input:#fff;
+    /* Inputs form registro & login */
+    --bg-input: rgba(255, 255, 255, 0.3);
+    --bg-form-input: rgba(255, 255, 255, 0.3);
+    --font-form-input: #fff;
 
-        /* ingresar background */
-    --bg-card-form:rgba(255, 255, 255, 0.15);
-    --bg-card-form-base:rgba(255, 255, 255, 0.5);
-
+    /* ingresar background */
+    --bg-card-form: rgba(255, 255, 255, 0.15);
+    --bg-card-form-base: rgba(255, 255, 255, 0.5);
 
     /* botones */
 
     --btn-info-border: rgba(255, 255, 255, 0.9);
     /* Font-colors */
     --text-card-grey: rgba(255, 255, 255, 0.8);
+    --important-blue: rgba(62, 141, 166, 1);
 }
 
 * {
@@ -154,11 +160,10 @@
   scroll-behavior: smooth;
 } */
 
-
 body {
-background: var(--body-new-color);
-background: var(--body-gradient)!important;
-color: var(--first-color) !important;
+    background: var(--body-new-color);
+    background: var(--body-gradient) !important;
+    color: var(--first-color) !important;
 }
 
 .flex-center {
@@ -215,8 +220,14 @@ header {
 
 .nav-item a,
 header a {
-    color: var(--link-navbar-color2) !important;
+    color: var(--link-navbar-color2);
     padding-top: 0.6em;
+}
+#registracion-enlace a {
+    transform: translateY(7px);
+}
+#registracion-enlace a:hover {
+    color: white !important;
 }
 
 .nav-item a:hover,
@@ -255,8 +266,10 @@ main {
     z-index: -1;
 }
 
-
-
+.navbar-nav .nav-link.active,
+.navbar-nav .show > .nav-link {
+    color: var(--main-color-blue-light) !important;
+}
 /* ======================== Main================================ */
 
 @media screen and (min-width: 285px) and (max-width: 992px) {
@@ -267,7 +280,6 @@ main {
         font-size: 1.5em !important;
         transform: translateY(-50px) !important;
     }
-
 
     #main {
         margin-top: 3.5em !important;
@@ -305,8 +317,6 @@ main {
         border: none !important;
         position: relative;
     }
-
-
 
     .edit {
         position: absolute;
@@ -420,7 +430,7 @@ a {
 /* ================================= Form ================================== */
 
 .form {
-    background:  var(--bg-card-form-base)!important;
+    background: var(--bg-card-form-base) !important;
     border-radius: 10px;
     color: var(--font-form-input) !important;
     box-shadow: 0 5px 10px -5px rgba(0 0 0 / 30%);
@@ -428,10 +438,11 @@ a {
 
 /* ============= Form Inputs ================ */
 
-.form input, .form textarea {
+.form input,
+.form textarea {
     color: #3c3b3b;
     cursor: pointer;
-    border:var(--border);
+    border: var(--border);
     outline: none;
     background: var(--bg-form-input);
 }
@@ -440,74 +451,87 @@ a {
     cursor: pointer;
 }
 .error {
-    color: red;
+    color: #cb3234 !important;
+    font-weight: 500 !important;
 }
 
 .requerido label:after {
     content: "*";
-    color: red;
+    color: #cb3234 !important;
 }
 
 /* ===== previsualizacion en form de las imagenes del carousel ======= */
 
-.img-peque{
+.img-peque {
     width: 100%;
-    object-fit: cover!important;
-
+    object-fit: cover !important;
 }
 
-.font{
-    font-size:1.2em!important;
+.font {
+    font-size: 1.2em !important;
 }
 /* ====================== delete icon ====================== */
-.contenedor-delete{
+.contenedor-delete {
     position: relative;
 }
 
-.delete-icon{
+.delete-icon {
     /* transform: translateY(19px); */
 
     position: absolute;
     bottom: 2%;
 
     right: 27%;
-
-
 }
-
-
-
 
 /*======================= Login ================= */
 
-#login {
-    height: 100vh;
+#login,
+#murales-favoritos,
+#allEvents,
+#categoria,
+#categoria-create,
+#lista-artistas,
+#edit-categoria,
+#lista-eventos,
+#lista-usuarios,
+#lista-roles,
+#wishlist-index,
+#wishlist-indexevent,
+#MisEventos {
+    min-height: 100vh;
 }
 
-
 .login-card {
-    background: var(--bg-card-form-base)!important;
+    background: var(--bg-card-form-base) !important;
     position: relative;
     transition: 0.3s ease;
     border-radius: 10px;
     box-shadow: 0 5px 10px -5px rgba(0 0 0 / 30%);
 }
-
-#login .login-card::before, #registracion .login-card::before {
+#lista-roles .login-card:before,
+#lista-usuarios .login-card:before,
+#lista-artistas .login-card:before,
+#categoria .login-card::before,
+#bienvenida .login-card::before,
+#login .login-card::before,
+#registracion .login-card::before {
     content: "";
     position: absolute;
-    background:var(--bg-card-form);
+    background: var(--bg-card-form);
     inset: 0;
     transform: rotate(-5deg);
     z-index: -1;
-
+}
+.nombre-usuario span {
+    color: var(--important-blue);
+    font-weight: 500;
 }
 
 .login-card a {
     text-decoration: none;
     color: rgba(81, 151, 173, 1);
 }
-
 
 .login-card-form .form-item {
     position: relative;
@@ -519,7 +543,6 @@ a {
     font-size: 1.3rem;
     opacity: 0.4;
     color: rgb(75, 73, 73);
-
 }
 
 .login-card input[type="text"],
@@ -532,23 +555,22 @@ a {
     padding-left: calc(1rem * 3.5);
     border-radius: 100px;
     width: 100%;
-
 }
 
-.form-check{
+.form-check {
     transform: translateY(8px);
 }
 
 .login-card-footer a {
-    color: var(--first-color) ;
+    color: var(--first-color);
 }
 .login-card-footer a:hover {
     text-decoration: underline !important;
     color: rgba(81, 151, 173, 1);
 }
 
-.btn-link:hover{
-    color:      rgba(110, 174, 174, 1) !important;
+.btn-link:hover {
+    color: rgba(110, 174, 174, 1) !important;
 }
 
 /* ========================Swiper=================================== */
@@ -558,7 +580,6 @@ a {
     padding: 0;
     box-sizing: border-box;
 }
-
 
 .swiper-slide {
     text-align: center;
@@ -623,7 +644,7 @@ a:visited {
     transform: scale(1.05) !important;
 }
 .card-tarjeta:hover .enlace-galeria {
-    transform: translateY(0);
+    transform: translateY(1%);
 }
 
 .card-tarjeta:hover img {
@@ -763,22 +784,22 @@ a:visited {
 /* ==================================  Eventos =========================================================== */
 
 /* ========== Imagen del evento en modal=============== */
-.img-card-eventos-modal{
+.img-card-eventos-modal {
     width: 100%;
-
-
 }
-.container-img-modal{
+.container-img-modal {
     position: relative;
 }
-.img-card-eventos-modal img{
+.img-card-eventos-modal img {
     object-fit: cover;
-
 }
 
 /* ====================== cards  ========================*/
-
-#eventos .card {
+#allEvents .card,
+#murales .card,
+#eventos .card,
+#wishlist-indexevent .card,
+#MisEventos .card {
     background: var(--main-card) !important;
     backdrop-filter: blur(1rem);
     box-shadow: 0 5px 10px -5px rgba(0 0 0 / 30%);
@@ -787,22 +808,25 @@ a:visited {
     transition: 0.5s ease;
 }
 
-#eventos .card:hover{
+#murales .card:hover,
+#eventos .card:hover,
+#wishlist-indexevent .card:hover,
+#MisEventos .card:hover {
     transform: scale(1.05) !important;
 }
 
-.bold{
+.bold {
     font-weight: 600;
 }
 
-.grey{
+.grey {
     color: var(--text-card-grey);
     font-weight: 500;
 }
-.row-card-principal{
+.row-card-principal {
     position: relative;
 }
-.img-card-eventos{
+.img-card-eventos {
     position: absolute;
     height: 100%;
     z-index: -1;
@@ -812,13 +836,11 @@ a:visited {
     border-bottom-left-radius: 6px;
 }
 
-
-.img-card-eventos img{
+.img-card-eventos img {
     object-fit: cover;
 }
 
-
-.dark-filter{
+.dark-filter {
     position: absolute;
     bottom: 0;
     background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.8));
@@ -827,13 +849,11 @@ a:visited {
     z-index: 1;
 }
 
-
 @media screen and (min-width: 1399px) {
-    #eventos .card {
+    #eventos .row-card-principal {
         min-height: 250px !important;
-        align-self: center !important;
     }
-    #eventos.body-tarjeta {
+    #eventos .body-tarjeta {
         min-height: 250px !important;
         align-items: center !important;
     }
@@ -850,73 +870,88 @@ a:visited {
 }
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {
-    #eventos .body-tarjeta {
+    #eventos .body-tarjeta,
+    #MisEventos .body-tarjeta {
         min-height: 210px !important;
     }
-    #eventos.card {
+    #eventos.card,
+    #MisEventos .card {
         min-height: 210px !important;
     }
 
-    #eventos h5 {
+    #eventos h5,
+    #MisEventos h5 {
         font-size: 1em !important;
         font-weight: 600 !important;
     }
-    #eventos p {
+    #eventos p,
+    #MisEventos p {
         font-size: 0.8em !important;
     }
-    #eventos .titulo {
+    #eventos .titulo,
+    #MisEventos .titulo {
         font-size: 0.9em !important;
     }
 }
 
 @media screen and (max-width: 730px) {
-    #eventos .section-title-01 {
+    #eventos .section-title-01,
+    #MisEventos .section-title-01 {
         font-size: 3em;
     }
-    #eventos .section-title-02 {
+    #eventos .section-title-02,
+    #MisEventos .section-title-02 {
         font-size: 2em;
         transform: translateY(-65px);
     }
-    #eventos h5 {
+    #eventos h5,
+    #MisEventos h5 {
         font-size: 1.2em;
         font-weight: 600 !important;
     }
-    #eventos p {
+    #eventos p,
+    #MisEventos p {
         font-size: 0.8em !important;
     }
-    #eventos .titulo {
+    #eventos .titulo,
+    #MisEventos .titulo {
         font-size: 0.9em !important;
     }
 }
 
 @media screen and (max-width: 445px) {
-    #eventos .section-title-01 {
+    #eventos .section-title-01,
+    #MisEventos .section-title-01 {
         font-size: 3em;
     }
-    #eventos .section-title-02 {
+    #eventos .section-title-02,
+    #MisEventos .section-title-02 {
         font-size: 2em;
         transform: translateY(-65px);
     }
-    #eventos h5 {
+    #eventos h5,
+    #MisEventos h5 {
         font-size: 1em;
         font-weight: 600 !important;
     }
 
-    #eventos .titulo {
+    #eventos .titulo,
+    #MisEventos .titulo {
         font-size: 0.9em !important;
     }
 }
 
 @media screen and (min-width: 200px) and (max-width: 313px) {
-    #eventos .section-title-01 {
+    #eventos .section-title-01,
+    #MisEventos .section-title-01 {
         font-size: 2em !important;
     }
-    #eventos .section-title-02 {
+    #eventos .section-title-02,
+    #MisEventos .section-title-02 {
         font-size: 1.6em;
         transform: translateY(-51px);
     }
 }
-
 
 /* ===========================FOOTER =========================== */
 
@@ -932,6 +967,9 @@ footer {
     font-size: 1.5rem !important;
 }
 
+#footer .cultura-footer {
+    color: #fafafa !important;
+}
 #footer .footer-links a {
     text-decoration: none !important;
     color: #aaa !important;
@@ -944,7 +982,7 @@ footer {
 }
 
 #footer .footer-links a:hover {
-    color: var(--main-color-light) !important;
+    color: var(--main-color-blue-light) !important;
 }
 
 #footer .footer-links li {
@@ -955,11 +993,14 @@ footer {
     list-style: none !important;
 }
 
+.redes-icons img:hover,
+.redes-icons:hover {
+    filter: brightness(0.5) grayscale(100);
+}
 
-
-
-
-
+.footer-web {
+    transform: translateY(-9px);
+}
 /* ============= Boton Ingresar ================ */
 
 .btn-ingresar {
@@ -967,8 +1008,6 @@ footer {
     border: none !important;
     color: white !important;
     font-weight: 500;
-
-
 
     box-shadow: inset 0 0 0 0 rgba(62, 141, 166, 1) !important;
     transition: ease-out 0.5s;
@@ -991,29 +1030,29 @@ footer {
 /* Reset Vista */
 
 #restaurar {
-    height: 79vh!important;
+    height: 79vh !important;
 }
 
-#registracion{
-    height: 100vh!important;
+#registracion {
+    height: 100vh !important;
 }
 
 /* ================================================================ */
 
-.transform{
+.transform {
     transform: translateY(50px);
     z-index: 1;
 }
 
 .big {
-    font-size:1.5em!important;
+    font-size: 1.5em !important;
 }
 
-@media screen and (max-width: 445px){
+@media screen and (max-width: 445px) {
     .big {
-        font-size:1em!important;
+        font-size: 1em !important;
     }
-    .transform{
+    .transform {
         transform: translateY(40px);
         z-index: 1;
     }
@@ -1029,6 +1068,20 @@ footer {
 }
 
 /* ======================Botones =================================== */
+/* ============= boton volver ================ */
+
+.btn-outline-delete {
+    border-color: rgba(62, 141, 166, 1) !important;
+    color: rgba(62, 141, 166, 1) !important;
+    font-weight: 500 !important;
+
+    box-shadow: inset 0 0 0 0 rgba(62, 141, 166, 1) !important;
+}
+.btn-outline-delete:hover {
+    color: white !important;
+    border-color: rgba(110, 174, 174, 1) !important;
+    background: rgba(110, 174, 174, 1) 45% !important;
+}
 
 /* ============= boton volver ================ */
 
@@ -1041,7 +1094,7 @@ footer {
 }
 .btn-outline-volver:hover {
     color: white !important;
-    border-color: rgba(110, 174, 174, 1)  !important;
+    border-color: rgba(110, 174, 174, 1) !important;
     background: rgba(110, 174, 174, 1) 45% !important;
 }
 /* ============ Boton Success ================== */
@@ -1094,14 +1147,13 @@ footer {
     border: none !important;
     font-weight: 500;
     transition: ease-out 0.5s;
-    color: white!important;
+    color: white !important;
 }
 
 .btn-outline-eliminar:hover {
     border: none !important;
-    color: rgba(62, 141, 166, 1) !important;}
-
-
+    color: rgba(62, 141, 166, 1) !important;
+}
 
 /*=========================== Boton Eliminar================ */
 
@@ -1121,14 +1173,14 @@ footer {
     border-color: var(--btn-info-border) !important;
     color: var(--btn-info-border) !important;
     font-weight: 500 !important;
-    padding-left: 30px!important;
-    padding-right:30px!important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
 
     box-shadow: inset 0 0 0 0 rgba(62, 141, 166, 1) !important;
 }
 .btn-outline-info:hover {
     color: white !important;
-    border-color: rgba(110, 174, 174, 1)  !important;
+    border-color: rgba(110, 174, 174, 1) !important;
     background: rgba(110, 174, 174, 1) 45% !important;
 }
 /* ==================== Show Modal  =========================*/
@@ -1152,3 +1204,125 @@ footer {
     box-shadow: var(--box-shadow);
 }
 
+.artistas-nombres {
+    background: rgb(172, 170, 170, 0.7);
+    border: none;
+    border-radius: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin: 2px;
+    color: white;
+}
+
+.dropdown-menu {
+    color: black !important;
+    /* background: hsl(0 0% 100% / 0.1) !important; */
+    /* backdrop-filter: blur(120px) !important; */
+    /* transition: 0.6s ease; */
+    /* filter:blur(1px); */
+    background: var(--main-card-dropdown) !important;
+    box-shadow: var(--box-shadow) !important;
+}
+
+.general-font {
+    font-size: 20px !important;
+}
+
+/* Selector multiple para seleccinar artistas */
+
+.select2 {
+    width: 100% !important;
+}
+.container-select {
+    position: relative;
+}
+.container-select select {
+    position: absolute;
+}
+.container-select select input {
+    background-color: black !important;
+}
+#input-select-artist {
+    color: black !important;
+}
+.select2-container--default
+    .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: rgba(110, 174, 174, 0.3) !important;
+    color: #3c3b3b !important;
+    font-weight: 500 !important;
+}
+.select2-container--default {
+    color: #3c3b3b !important;
+    font-weight: 500 !important;
+}
+/* Categoria */
+
+#categoria,
+#lista-artistas {
+    font-size: 1.1em !important;
+    color: var(--first-color) !important;
+}
+.table th {
+    color: var(--first-color) !important;
+}
+#card_title {
+    font-weight: 500;
+    font-size: 1.2em !important;
+}
+.page-link.active,
+.active > .page-link {
+    border-color: rgba(62, 141, 166, 1) !important;
+    background-color: rgba(62, 141, 166, 1) !important;
+}
+
+.dropdown-divider {
+    background-color: var(--main-card-dropdown-line);
+}
+
+/* ================MAPA========================== */
+
+iframe {
+    height: 62vh;
+}
+
+/* Murales cards */
+
+.edition-delete {
+    z-index: 5 !important;
+}
+
+.mural-img {
+    max-height: 200px;
+}
+
+.mural-img {
+    object-fit: cover;
+}
+
+/* Filtro por categoria */
+.dropdown-menu a {
+    color: var(--first-color);
+}
+/* .dropdown-menu a:hover{
+    color:   var(--main-color-blue-light)
+} */
+/* ==================== POPOVER ==================== */
+.popover-header{
+    color: #FFF !important;
+   background:  rgba(110, 174, 174, 1) !important;
+
+
+}
+.popover-body{
+    color: #FFF !important;
+
+    backdrop-filter: blur(1rem);
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius:10px ;
+}
+
+.popover{
+    background: hsl(0 0% 100% / 0.2) !important;
+}

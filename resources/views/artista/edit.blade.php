@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container mt-5 ">
+    <div class="container mt-5" >
         <div class="row">
             <div class="col-12 col-lg-4 mb-3">
                 <div class="row">
@@ -18,8 +18,12 @@
                                     <div class="col text-center">
                                         @if ($artista->cover_carousel)
                                             <div class="row">
-                                                <div class="col mx-auto mt-3"> <img
+                                                <div class="col mx-auto mt-3">
+                                                 {{--    <img
                                                         src="{{ asset('cover') . '/' . $artista->cover_carousel }}"
+                                                        class="img_responsive" style="max-height:150px;, max-width:150px;"> --}}
+                                                        <img
+                                                        src="{{ asset($artista->cover_carousel)}}"
                                                         class="img_responsive" style="max-height:150px;, max-width:150px;">
                                                 </div>
                                                 <form action="{{ url('/artistas' . '/deletecover/' . $artista->id) }}"
@@ -62,7 +66,9 @@
                                                     @csrf
                                                     @method('delete')
                                                 </form>
-                                                <img src=" {{ asset('images') . '/' . $img->image }}" class="img_responsive"
+                                                {{-- <img src=" {{ asset('images') . '/' . $img->image }}" class="img_responsive"
+                                                    style="max-height:150px;, max-width:150px;"> --}}
+                                                    <img src=" {{ asset($img->image)}}" class="img_responsive"
                                                     style="max-height:150px;, max-width:150px;">
                                             </div>
                                         @endforeach

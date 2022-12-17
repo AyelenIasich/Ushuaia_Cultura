@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 order-1">
+            <div class="col-12 col-md-6 order-1 ">
                 <div class="row d-none d-md-block">
                     <div class="col">
                         <div class="text-center  mt-md-2 ">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="row ">
-                    <div class="col-12">
+                    <div class="col-12 pt-5 pt-md-0">
                         {{ $artista->titulo }}
                     </div>
                     <div class="col-12 mt-3">
@@ -53,16 +53,16 @@
 
                     <div class="col-2  redes">
                         <a class="correo-artista" data-bs-toggle="popover" data-bs-title="Correo"
-                        data-bs-content="{{ $artista->correo }}" data-bs-placement="bottom"><i
-                        class="fa-regular fa-envelope"></i></a>
+                            data-bs-content="{{ $artista->correo }}" data-bs-placement="bottom"><i
+                                class="fa-regular fa-envelope"></i></a>
                     </div>
 
 
                 </div>
             </div>
             <div class="col-12  col-md-6 text-center">
-                <div class="col pt-3">
-                    <img src=" {{ asset('images') . '/' . $artista->images[0]->image }}"
+                <div class="col pt-3 ms-lg-4 me-lg-4">
+                        <img src=" {{ asset($artista->images[0]->image) }}"
                         class="img_responsive artista_img">
                 </div>
             </div>

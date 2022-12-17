@@ -10,12 +10,14 @@
             @enderror
         </div>
     </div>
+
+
     <div class="row">
         <div class="col">
             <div class="form-group  requerido">
                 <label for="descripcion" class="form-label mb-2  pt-2">Descripción</label>
                 <textarea placeholder="descripcion" type="text" class="form-control" name="descripcion" id="descripcion"
-                    cols="30" rows="4">
+                    cols="30" rows="6">
 @if (isset($homes))
 {{ $homes->descripcion }}
 @endif @if (!$errors->has('descripcion'))

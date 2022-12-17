@@ -12,8 +12,8 @@
             <div class="row d-md-none">
                 <div class="col">
                     <div class="text-center mt-md-2 ">
-                        <h1 class="section-title-01 display-4">{{ $artista->nombre }} {{ $artista->apellido }}</h1>
-                        <h2 class="section-title-02 display-6">{{ $artista->nombre }} {{ $artista->apellido }}</h2>
+                        <h1 class="section-title-01 display-4">{{ $artista->nombre }}</h1>
+                        <h2 class="section-title-02 display-6">{{ $artista->nombre }}</h2>
                     </div>
                 </div>
             </div>
@@ -21,8 +21,8 @@
                 <div class="row d-none d-md-block">
                     <div class="col">
                         <div class="text-center  mt-md-2 ">
-                            <h1 class="section-title-01 display-4">{{ $artista->nombre }} {{ $artista->apellido }}</h1>
-                            <h2 class="section-title-02 display-6">{{ $artista->nombre }} {{ $artista->apellido }}</h2>
+                            <h1 class="section-title-01 display-4">{{ $artista->nombre }}</h1>
+                            <h2 class="section-title-02 display-6">{{ $artista->nombre }}</h2>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,6 @@ class Artista extends Model
     use HasFactory;
     static $rules = [
 		'nombre' => 'required',
-		'apellido' => 'required',
 		'cover_carousel' => 'required',
 		'descripcion' => 'required',
 		'correo' => 'required',
@@ -18,11 +17,16 @@ class Artista extends Model
 
     protected $perPage = 20;
 
-    protected $fillable = ['nombre','apellido','cover_carousel','descripcion','correo','instagram','facebook','titulo','subtitulo'];
+    protected $fillable = ['user_id','nombre','cover_carousel','descripcion','correo','instagram','facebook','titulo','subtitulo'];
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(ImageArtista::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 
 

@@ -1,12 +1,26 @@
 <footer id="footer">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row row-xl-3 pb-4">
-            <div class="col-12 col-md-6 col-xl-1 ps-xl-1 me-xxl-5 me-xl-5 pt-xl-4 pb-xl-3">
-                <div class="row-cols-2">
-                    <div class="col-12 title pb-2 text-center text-xl-start">
+            <div class="col-12 col-md-4">
+                <div class="row ps-md-4">
+                    <div class="col-12 title pb-2 text-center ">
+                        <a class="navbar-brand" href="#">
+                            <span class="ushuaia d-inline-block display-6 ">USHUAIA</span>
+                            <span class="cultura d-inline-block display-6 cultura-footer">Cultura</span>
+                        </a>
+
+                    </div>
+                    <div class="col text-center mt-4 ">
+                        <img src=" {{ asset('otros\logito.png') }}"width="250" height="90" alt="logo">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 pt-5 pt-md-0">
+                <div class="row  text-center">
+                    <div class="col-12 title pb-2 text-center ">
                         <h3 class="">Links</h3>
                     </div>
-                    <div class="col-12 footer-links p-0 text-center text-xl-start">
+                    <div class="col-12 footer-links p-0 text-center">
                         <ul class="p-0">
                             <li><a href="{{ url('/' . '#main') }}">Home</a></li>
                             <li><a href="{{ url('/' . '#artistas') }}">Artistas</a></li>
@@ -17,43 +31,33 @@
                     </div>
                 </div>
             </div>
-
-            <div
-                class="col-12 col-md-6 col-xl-3 mt-5 mt-md-0 mt-xl-3 pt-md-0 pt-4 pt-xl-1 pb-3 text-center ms-xl-3 ms-xxl-3 me-xl-2 order-xl-2">
-                <div class="row-cols-2">
-                    <div class="col-12 title pb-3">
+            <div class="col-12 col-md-4 pt-5 pt-md-0">
+                <div class="row ">
+                    <div class="col-12 title pb-3  text-center">
                         <h3 id="contacto" class="h4">¿Quieres contactarnos?</h3>
                     </div>
-                    <div class="col-12 footer-icons pb-4">
+                    <div class="col-12  pb-4 text-center">
                         <div class="media-icons d-xl-inline-block">
-                            <a class="navbar-brand pe-4 redes-icons" href="https://ar.linkedin.com/in/ayeiasich"><img
-                                    src="assets/Icons/IconLinkedin.svg" alt="" width="25"
-                                    height="25" /></a>
-                            <a class="navbar-brand ps-3 pe-4 redes-icons" href="https://www.instagram.com/?hl=es"><img
-                                    src="assets/Icons/Instagram.svg" alt="" width="25" height="25" /></a>
-                            <a class="navbar-brand ps-4 redes-icons" href="https://github.com/AyelenIasich"><img
-                                    src="assets/Icons/IconGithubicon.svg" alt="" width="35"
-                                    height="35" /></a>
+                            <a class="navbar-brand pe-4 redes-icons footer-text"
+                                href="https://ar.linkedin.com/in/ayeiasich"><i
+                                    class="display-6 fa-brands fa-linkedin"></i></a>
+                            <a class="navbar-brand ps-3 pe-4 redes-icons" href="https://ayeleniasichmyportfolio.web.app/"><img
+                                    class="footer-web" src=" {{ asset('otros\web2.svg') }}" alt=""
+                                    width="45" height="45" /></a>
+                            <a class="navbar-brand ps-4 redes-icons footer-text"
+                                href="https://github.com/AyelenIasich"><i
+                                    class="display-6  fa-brands fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-12 col-xl-7 ms-xxl-4 me-xl-2 pt-4 ms-md-0 pb-3 mt-5 mt-xl-0">
-                {{-- <div class="row p-0">
-            <div class="col-12 title text-center pb-md-2">
-              <h3>Agradecimientos</h3>
-            </div>
-            <div class="row footer-links" id="iconos">
 
-            </div>
-          </div> --}}
-            </div>
         </div>
         <div class="row pb-3 pt-4 align-items-center">
-            {{-- <div class="col-12 text-center footer-text">
-          <p>Hecho con <i class="fa-solid fa-heart"></i> por Pablo, Fede y Aye</p>
-        </div> --}}
+            <div class="col-12 text-center footer-text">
+          <a tabindex="0" data-bs-placement="top" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Agradecimientos" data-bs-content="Agradecimientos a Local Guides @FaridTDF por las fotos obtenidas de su blog.">Agradecimientos</a>
+        </div>
         </div>
     </div>
 </footer>

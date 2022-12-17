@@ -5,17 +5,22 @@ use App\Models\Artista;
 use Illuminate\Http\Request;
 use App\Models\Galeria;
 use App\Models\Home;
-
-
-
+use App\Models\Event;
+use App\Models\Mural;
 class HomeController extends Controller
 {
 
     public function index()
+
+
     {
-        $home['home'] = Home::find(1);
+       $home['home'] = Home::first();
         $artistas['artistas'] = Artista::all();
-         return view('home', compact('home', 'artistas'));
+        $murales = Mural::paginate(6);
+        $events = Event::where('fecha_evento', '>=', now())->with(['artists'])->paginate(6);
+
+         return view('home', compact('home', 'artistas','events', 'murales'));
+
     }
 
     public function show($id)

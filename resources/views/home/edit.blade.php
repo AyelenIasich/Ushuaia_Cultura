@@ -11,26 +11,24 @@
                                 <h4>Imágenes del Carousel</h4>
                             </div>
                         </div>
-                @if (count($homes->home_images) > 0)
-
-
-                    <div class="row row-cols-2">
-                        @foreach ($homes->home_images as $img)
-                            <div class="col text-end">
-                                <form action="{{ url('home' . '/deleteimage/' . $img->id) }}" method="post">
-                                    <button class="btn btn-outline-eliminar p-0"><i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                    @csrf
-                                    @method('delete')
-                                </form>
-                                <img src=" {{ asset('carousel') . '/' . $img->image }}" class="img_responsive img-peque"
-                                  >
+                        @if (count($homes->home_images) > 0)
+                            <div class="row row-cols-2">
+                                @foreach ($homes->home_images as $img)
+                                    <div class="col text-end">
+                                        <form action="{{ url('home' . '/deleteimage/' . $img->id) }}" method="post">
+                                            <button class="btn btn-outline-eliminar p-0"><i
+                                                    class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                        <img src=" {{ asset($img->image) }}" class="img_responsive img-peque">
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                        @endif
                     </div>
-                @endif
-            </div>
-            </div>
+                </div>
             </div>
             <div class="col-10 col-md-7 col-lg-5 mx-auto form p-4 mb-5">
                 <form action="{{ url('/home/' . $homes->id) }}" method="post" enctype="multipart/form-data">

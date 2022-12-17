@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('artista_id')->unsigned();
             $table->string("image_obra");
-            $table->string("titulo_obra");
+            $table->string("titulo_obra")->nullable();
             $table->string("descripcion_obra")->nullable();
             $table->date('fecha_creacion')->nullable();;
             $table->timestamps();
