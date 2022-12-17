@@ -47,9 +47,10 @@ class MainController extends Controller
             $files = $request->file("images");
             foreach ($files as $file) {
                 $imageName =  Str::random(10) . $file->getClientOriginalName();
-                Image::make($file)->resize(1200, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save(\public_path("/carousel/") . $imageName);
+                $file->move(\public_path("/carousel"), $imageName);
+                // Image::make($file)->resize(1200, null, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // })->save(\public_path("/carousel/") . $imageName);
 
 
                 $home_images = new Home_images([
@@ -91,7 +92,7 @@ class MainController extends Controller
             //     Home_images::create($request->all());
             //}
         }
-        return redirect("/home/");
+         return view('home');
     }
 
 
