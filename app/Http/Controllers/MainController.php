@@ -35,42 +35,66 @@ class MainController extends Controller
 
     public function store(Request $request)
     {
-        $campos = ['titulo' => 'required|string|max:350', 'descripcion' => 'required|string|max:400', 'images' => 'required|',];;
+        $campos = ['titulo' => 'required|string|max:350', 'descripcion' => 'required|string|max:400', 'images' => 'required|',];
         $this->validate($request, $campos);
 
         $home = new Home(['titulo' => $request->titulo, 'descripcion' => $request->descripcion,]);
         $home->save();
 
+      // con spaces
+      if ($request->hasFile("images")) {
+        $file = $request->file('images');
 
-        if ($request->hasFile("images")) {
-            $files = $request->file("images");
-            foreach ($files as $file) {
-                $imageName =  Str::random(10) . $file->getClientOriginalName();
-                $ruta = storage_path() . '\app\public\carousel/' . $imageName;
-                $ruta_storage = '/storage/carousel/' . $imageName;
-                Image::make($file)->resize(1200, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($ruta);
+        $imageName =   Str::random(10) . $file->getClientOriginalName();
 
 
-                $home_images = new Home_images([
-                    'home_id' =>  $home->id,
-                    'image' =>  $ruta_storage,
+        $store = Storage::disk('do')->put('carousel/' . $imageName, file_get_contents($request->file('images')->getRealPath()), 'public');
 
-                ]);
-                $home_images->save();
-            }
+        $url = Storage::disk('do')->url('carousel/' . $imageName);
 
-            // Antiguo
-            // $files = $request->file("images");
-            // foreach ($files as $file) {
-            //     $imageName = time() . '_' . $file->getClientOriginalName();
-            //     $request['home_id'] = $home->id;
-            //     $request['image'] = $imageName;
-            //     $file->move(\public_path("/carousel"), $imageName);
-            //     Home_images::create($request->all());
-            //}
-        }
+        $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
+
+
+        $home_images = new Home_images([
+            'home_id' =>  $home->id,
+            'image' =>  $cdn_url,
+        ]);
+        $home_images->save();
+    }
+
+
+
+
+// Storage funciona perfecto con optimizacion de imagenes
+        // if ($request->hasFile("images")) {
+        //     $files = $request->file("images");
+        //     foreach ($files as $file) {
+        //         $imageName =  Str::random(10) . $file->getClientOriginalName();
+        //         $ruta = storage_path() . '\app\public\carousel/' . $imageName;
+        //         $ruta_storage = '/storage/carousel/' . $imageName;
+        //         Image::make($file)->resize(1200, null, function ($constraint) {
+        //             $constraint->aspectRatio();
+        //         })->save($ruta);
+
+
+        //         $home_images = new Home_images([
+        //             'home_id' =>  $home->id,
+        //             'image' =>  $ruta_storage,
+
+        //         ]);
+        //         $home_images->save();
+        //     }
+
+        //     Antiguo
+        //     $files = $request->file("images");
+        //     foreach ($files as $file) {
+        //         $imageName = time() . '_' . $file->getClientOriginalName();
+        //         $request['home_id'] = $home->id;
+        //         $request['image'] = $imageName;
+        //         $file->move(\public_path("/carousel"), $imageName);
+        //         Home_images::create($request->all());
+        //     }
+        //  }
         return redirect("/home/");
     }
 
@@ -97,6 +121,9 @@ class MainController extends Controller
         ]);
 
 
+
+
+            //funciona perfecto
         if ($request->hasFile("images")) {
             $files = $request->file('images');
             foreach ($files as $file) {
@@ -114,9 +141,6 @@ class MainController extends Controller
                 ]);
                 $home_images->save();
             }
-
-
-
 
         }
 

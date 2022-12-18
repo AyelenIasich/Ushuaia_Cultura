@@ -30,7 +30,24 @@
             </div>
         </div>
     </div>
+    {{-- INTENTANDO SUBIR A SPACES --}}
     <div class="row">
+        <div class="col">
+            <div class="form-group requerido">
+                <div class="form-group mb-3">
+                    <label for="images " class="form-label mb-2 pt-2">Imágenes del carousel</label>
+                    <input
+                        @if (!empty($errors->get('descripcion'))) class="form-control is-invalid" @else class="form-control" @endif
+                        type="file" name="images"  id="Foto">
+                </div>
+                @error('images')
+                    <small class="error">*{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
+    </div>
+    {{-- fUNIONA PERFECTO EN LOCAL --}}
+    {{-- <div class="row">
         <div class="col">
             <div class="form-group requerido">
                 <div class="form-group mb-3">
@@ -44,7 +61,7 @@
                 @enderror
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="row mt-3">
         <div class="col ">
             <p><span class="error">*</span> Campos requeridos</p>
