@@ -120,29 +120,47 @@ class MainController extends Controller
             "descripcion" => $request->descripcion,
         ]);
 
-
-
-
-            //funciona perfecto
+// STORE CON SPACES
         if ($request->hasFile("images")) {
-            $files = $request->file('images');
-            foreach ($files as $file) {
-                $imageName =  Str::random(10) . $file->getClientOriginalName();
-                $ruta = storage_path() . '\app\public\carousel/' . $imageName;
-                $ruta_storage = '/storage/carousel/' . $imageName;
-                Image::make($file)->resize(1200, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($ruta);
+            $file = $request->file('images');
 
-                $home_images = new Home_images([
-                    'home_id' =>  $home->id,
-                    'image' =>  $ruta_storage,
+            $imageName =   Str::random(10) . $file->getClientOriginalName();
 
-                ]);
-                $home_images->save();
-            }
 
+            $store = Storage::disk('do')->put('carousel/' . $imageName, file_get_contents($request->file('images')->getRealPath()), 'public');
+
+            $url = Storage::disk('do')->url('carousel/' . $imageName);
+
+            $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
+
+
+            $home_images = new Home_images([
+                'home_id' =>  $home->id,
+                'image' =>  $cdn_url,
+            ]);
+            $home_images->save();
         }
+
+        //     //funciona perfecto
+        // if ($request->hasFile("images")) {
+        //     $files = $request->file('images');
+        //     foreach ($files as $file) {
+        //         $imageName =  Str::random(10) . $file->getClientOriginalName();
+        //         $ruta = storage_path() . '\app\public\carousel/' . $imageName;
+        //         $ruta_storage = '/storage/carousel/' . $imageName;
+        //         Image::make($file)->resize(1200, null, function ($constraint) {
+        //             $constraint->aspectRatio();
+        //         })->save($ruta);
+
+        //         $home_images = new Home_images([
+        //             'home_id' =>  $home->id,
+        //             'image' =>  $ruta_storage,
+
+        //         ]);
+        //         $home_images->save();
+        //     }
+
+        // }
 
 
         return redirect("/")->with('actualizado', 'ok');
