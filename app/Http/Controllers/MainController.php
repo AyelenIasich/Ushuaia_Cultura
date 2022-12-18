@@ -153,7 +153,7 @@ class MainController extends Controller
         //     $constraint->aspectRatio();
         // })->encode($extension);
 
-        $store = Storage::disk('do')->put('carousel/'.$imageName,  file_get_contents($request->file('images')->getRealPath()), 'public');
+        $store = Storage::disk('do')->put('carousel/'.$imageName,  file_get_contents($file->getRealPath()), 'public');
 
         $url = Storage::disk('do')->url('carousel/' .  $imageName);
 
