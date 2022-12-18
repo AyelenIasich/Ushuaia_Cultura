@@ -149,11 +149,11 @@ class MainController extends Controller
     foreach ($files as $file) {
         $extension = $file->getClientOriginalExtension();
         $imageName =   Str::random(10) . $file->getClientOriginalName();
-        $image = Image::make($file)->resize(1200, null, function ($constraint) {
-            $constraint->aspectRatio();
-        })->encode($extension);
+        // $image = Image::make($file)->resize(1200, null, function ($constraint) {
+        //     $constraint->aspectRatio();
+        // })->encode($extension);
 
-        $store = Storage::disk('do')->put('carousel/' .  $imageName, $image, 'public');
+        $store = Storage::disk('do')->put('carousel/',  $imageName, 'public');
 
         $url = Storage::disk('do')->url('carousel/' .  $imageName);
 
