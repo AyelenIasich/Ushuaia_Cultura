@@ -121,27 +121,56 @@ class MainController extends Controller
         ]);
 
 // STORE CON SPACES
-        if ($request->hasFile("images")) {
-            $file = $request->file('images');
+        // if ($request->hasFile("images")) {
+        //     $file = $request->file('images');
 
-            $imageName =   Str::random(10) . $file->getClientOriginalName();
-
-
-            $store = Storage::disk('do')->put('carousel/' . $imageName, file_get_contents($request->file('images')->getRealPath()), 'public');
-
-            $url = Storage::disk('do')->url('carousel/' . $imageName);
-
-            $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
+        //     $imageName =   Str::random(10) . $file->getClientOriginalName();
 
 
-            $home_images = new Home_images([
-                'home_id' =>  $home->id,
-                'image' =>  $cdn_url,
-            ]);
-            $home_images->save();
-        }
+        //     $store = Storage::disk('do')->put('carousel/' . $imageName, file_get_contents($request->file('images')->getRealPath()), 'public');
 
-        //     //funciona perfecto
+        //     $url = Storage::disk('do')->url('carousel/' . $imageName);
+
+        //     $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
+
+
+        //     $home_images = new Home_images([
+        //         'home_id' =>  $home->id,
+        //         'image' =>  $cdn_url,
+        //     ]);
+        //     $home_images->save();
+        // }
+// STORE CON SPACES
+
+
+  // con spaces
+  if ($request->hasFile("images")) {
+    $files = $request->file('images');
+    foreach ($files as $file) {
+        $extension = $file->getClientOriginalExtension();
+        $imageName =   Str::random(10) . $file->getClientOriginalName();
+        $image = Image::make($file)->resize(1200, null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->encode($extension);
+
+        $store = Storage::disk('do')->put('carousel/' .  $imageName, $image, 'public');
+
+        $url = Storage::disk('do')->url('carousel/' .  $imageName);
+
+        $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
+
+        $home_images = new Home_images([
+            'home_id' =>  $home->id,
+            'image' =>  $cdn_url,
+        ]);
+        $home_images->save();
+    }
+}
+
+
+
+
+        //   STORAGE LOCAL FUNCIONA PERFECTO
         // if ($request->hasFile("images")) {
         //     $files = $request->file('images');
         //     foreach ($files as $file) {
