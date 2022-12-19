@@ -41,31 +41,30 @@ class MainController extends Controller
         $home = new Home(['titulo' => $request->titulo, 'descripcion' => $request->descripcion,]);
         $home->save();
 
-      // con spaces
-      if ($request->hasFile("images")) {
-        $file = $request->file('images');
+        // STORE CON SPACE DE DIGITAL OCEAN
+        if ($request->hasFile("images")) {
+            $files = $request->file('images');
+            foreach ($files as $file) {
+                $imageName =   Str::random(10) . $file->getClientOriginalName();
 
-        $imageName =   Str::random(10) . $file->getClientOriginalName();
+                $store = Storage::disk('do')->put('carousel/' . $imageName,  file_get_contents($file->getRealPath()), 'public');
 
+                $url = Storage::disk('do')->url('carousel/' .  $imageName);
 
-        $store = Storage::disk('do')->put('carousel/' . $imageName, file_get_contents($request->file('images')->getRealPath()), 'public');
+                $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
 
-        $url = Storage::disk('do')->url('carousel/' . $imageName);
-
-        $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
-
-
-        $home_images = new Home_images([
-            'home_id' =>  $home->id,
-            'image' =>  $cdn_url,
-        ]);
-        $home_images->save();
-    }
-
+                $home_images = new Home_images([
+                    'home_id' =>  $home->id,
+                    'image' =>  $cdn_url,
+                ]);
+                $home_images->save();
+            }
+        }
 
 
 
-// Storage funciona perfecto con optimizacion de imagenes
+
+        // Storage funciona perfecto con optimizacion de imagenes
         // if ($request->hasFile("images")) {
         //     $files = $request->file("images");
         //     foreach ($files as $file) {
@@ -120,52 +119,27 @@ class MainController extends Controller
             "descripcion" => $request->descripcion,
         ]);
 
-// STORE CON SPACES
-        // if ($request->hasFile("images")) {
-        //     $file = $request->file('images');
 
-        //     $imageName =   Str::random(10) . $file->getClientOriginalName();
+        // STORE CON SPACES
 
+        if ($request->hasFile("images")) {
+            $files = $request->file('images');
+            foreach ($files as $file) {
+                $imageName =   Str::random(10) . $file->getClientOriginalName();
 
-        //     $store = Storage::disk('do')->put('carousel/' . $imageName, file_get_contents($request->file('images')->getRealPath()), 'public');
+                $store = Storage::disk('do')->put('carousel/' . $imageName,  file_get_contents($file->getRealPath()), 'public');
 
-        //     $url = Storage::disk('do')->url('carousel/' . $imageName);
+                $url = Storage::disk('do')->url('carousel/' .  $imageName);
 
-        //     $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
+                $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
 
-
-        //     $home_images = new Home_images([
-        //         'home_id' =>  $home->id,
-        //         'image' =>  $cdn_url,
-        //     ]);
-        //     $home_images->save();
-        // }
-// STORE CON SPACES
-
-
-  // con spaces
-  if ($request->hasFile("images")) {
-    $files = $request->file('images');
-    foreach ($files as $file) {
-        $extension = $file->getClientOriginalExtension();
-        $imageName =   Str::random(10) . $file->getClientOriginalName();
-        // $image = Image::make($file)->resize(1200, null, function ($constraint) {
-        //     $constraint->aspectRatio();
-        // })->encode($extension);
-
-        $store = Storage::disk('do')->put('carousel/'.$imageName,  file_get_contents($file->getRealPath()), 'public');
-
-        $url = Storage::disk('do')->url('carousel/' .  $imageName);
-
-        $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
-
-        $home_images = new Home_images([
-            'home_id' =>  $home->id,
-            'image' =>  $cdn_url,
-        ]);
-        $home_images->save();
-    }
-}
+                $home_images = new Home_images([
+                    'home_id' =>  $home->id,
+                    'image' =>  $cdn_url,
+                ]);
+                $home_images->save();
+            }
+        }
 
 
 
@@ -214,14 +188,28 @@ class MainController extends Controller
 
     public function deleteimage($id)
     {
+        //DESTROY LA NUBE SPACE DIGITAL OCEAN
 
         $images = Home_images::find($id);
-        $url = str_replace('storage', 'public', $images->image);
-        if (Storage::exists($url)) {
-            Storage::delete($url);
+
+        $url = str_replace('https://ushuaiacultura.nyc3.cdn.digitaloceanspaces.com/carousel', 'carousel', $images->image);
+        if (Storage::disk('do')->exists($url)) {
+            Storage::disk('do')->delete($url);
         }
         Home_images::find($id)->delete();
         return back();
+
+
+
+
+        //DETROY CON STORAGE EN LOCAL
+        // $images = Home_images::find($id);
+        // $url = str_replace('storage', 'public', $images->image);
+        // if (Storage::exists($url)) {
+        //     Storage::delete($url);
+        // }
+        // Home_images::find($id)->delete();
+        // return back();
 
 
 

@@ -36,7 +36,7 @@
                 <div class="form-group mb-3">
                     <label for="images " class="form-label mb-2 pt-2">Imágenes del carousel</label>
                     <input
-                        @if (!empty($errors->get('descripcion'))) class="form-control is-invalid" @else class="form-control" @endif
+                        @if (!empty($errors->get('images'))) class="form-control is-invalid" @else class="form-control" @endif
                         type="file" name="images[]" multiple id="Foto">
                 </div>
                 @error('images')

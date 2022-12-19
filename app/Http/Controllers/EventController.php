@@ -45,11 +45,12 @@ class EventController extends Controller
         }
 
 
-        return view('event.index', compact('events' , 'CategoriasEvento'))
+        return view('event.index', compact('events', 'CategoriasEvento'))
             ->with('i', (request()->input('page', 1) - 1) * $events->perPage());
     }
 
-    public function CategoriaEvento(Category $categoria){
+    public function CategoriaEvento(Category $categoria)
+    {
         $CategoriasEvento = Category::all();
 
         if (!Auth::check()) {
@@ -67,8 +68,7 @@ class EventController extends Controller
 
 
 
-       return view('event.categoria', compact('events', 'CategoriasEvento'));
-
+        return view('event.categoria', compact('events', 'CategoriasEvento'));
     }
 
 
@@ -105,14 +105,16 @@ class EventController extends Controller
         ];
         $this->validate($request, $campos);
 
+        //STORE NUBE SPACES DIGITAL OCEAN
 
         if ($request->hasFile('image_evento')) {
-            $nombre = Str::random(10) . $request->file('image_evento')->getClientOriginalName();
-            $ruta = storage_path() . '\app\public\imagenEvento/' . $nombre;
-            $ruta_storage = '/storage/imagenEvento/' . $nombre;
-            Image::make($request->file('image_evento'))->resize(1200, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($ruta);
+            $file = $request->file('image_evento');
+            $imageName = Str::random(10) . $file->getClientOriginalName();
+            $store = Storage::disk('do')->put('imagenEvento/' . $imageName,  file_get_contents($file->getRealPath()), 'public');
+            $url = Storage::disk('do')->url('imagenEvento/' .  $imageName);
+            $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
+
+
 
             $event = new Event([
                 'user_id' => auth()->user()->id,
@@ -122,13 +124,41 @@ class EventController extends Controller
                 'fecha_evento' => $request->fecha_evento,
                 'resumen' => $request->resumen,
                 'descripcion_evento' => $request->descripcion_evento,
-                'image_evento' => $ruta_storage,
+                'image_evento' =>    $cdn_url,
                 'info_external' => $request->info_external,
                 'nombre_url' => $request->nombre_url,
                 'external_url' => $request->external_url,
                 'direccion' => $request->direccion,
                 'institucion' => $request->institucion,
             ]);
+
+
+
+
+            // STORE STORAGE LOCAL
+            // if ($request->hasFile('image_evento')) {
+            //     $nombre = Str::random(10) . $request->file('image_evento')->getClientOriginalName();
+            //     $ruta = storage_path() . '\app\public\imagenEvento/' . $nombre;
+            //     $ruta_storage = '/storage/imagenEvento/' . $nombre;
+            //     Image::make($request->file('image_evento'))->resize(1200, null, function ($constraint) {
+            //         $constraint->aspectRatio();
+            //     })->save($ruta);
+
+            //     $event = new Event([
+            //         'user_id' => auth()->user()->id,
+            //         'categoria_id' => $request->categoria_id,
+            //         'titulo_evento' => $request->titulo_evento,
+            //         'hora_evento' => $request->hora_evento,
+            //         'fecha_evento' => $request->fecha_evento,
+            //         'resumen' => $request->resumen,
+            //         'descripcion_evento' => $request->descripcion_evento,
+            //         'image_evento' => $ruta_storage,
+            //         'info_external' => $request->info_external,
+            //         'nombre_url' => $request->nombre_url,
+            //         'external_url' => $request->external_url,
+            //         'direccion' => $request->direccion,
+            //         'institucion' => $request->institucion,
+            //     ]);
             $event->save();
         }
         $id = $event->id;
@@ -175,20 +205,21 @@ class EventController extends Controller
             $campos = ['image_evento' => 'required|image',];
         }
         $this->validate($request, $campos);
+        // UPDATE NUBE SPACES DIGITAL OCEAN
 
-        $ruta_storage = $event->image_evento;
+        $cdn_url = $event->image_evento;
+
 
         if ($request->hasFile("image_evento")) {
+            $url = str_replace('https://ushuaiacultura.nyc3.cdn.digitaloceanspaces.com/imagenEvento', 'imagenEvento',  $event->image_evento);
+            Storage::disk('do')->delete($url);
 
-            $url = str_replace('storage', 'public', $event->image_evento);
-            Storage::delete($url);
 
-            $nombre = Str::random(10) . $request->file('image_evento')->getClientOriginalName();
-            $ruta = storage_path() . '\app\public\imagenEvento/' . $nombre;
-            $ruta_storage = '/storage/imagenEvento/' . $nombre;
-            Image::make($request->file('image_evento'))->resize(1200, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($ruta);
+            $file = $request->file('image_evento');
+            $imageName = Str::random(10) . $file->getClientOriginalName();
+            $store = Storage::disk('do')->put('imagenEvento/' . $imageName,  file_get_contents($file->getRealPath()), 'public');
+            $url = Storage::disk('do')->url('imagenEvento/' .  $imageName);
+            $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
         }
 
 
@@ -200,7 +231,7 @@ class EventController extends Controller
             'fecha_evento' => $request->fecha_evento,
             'resumen' => $request->resumen,
             'descripcion_evento' => $request->descripcion_evento,
-            'image_evento' => $ruta_storage,
+            'image_evento' => $cdn_url,
             'info_external' => $request->info_external,
             'nombre_url' => $request->nombre_url,
             'external_url' => $request->external_url,
@@ -208,6 +239,41 @@ class EventController extends Controller
             'institucion' => $request->institucion,
 
         ]);
+
+
+        //UPDATE CON STORAGE LOCAL
+
+        //     $ruta_storage = $event->image_evento;
+        // if ($request->hasFile("image_evento")) {
+
+        //     $url = str_replace('storage', 'public', $event->image_evento);
+        //     Storage::delete($url);
+
+        //     $nombre = Str::random(10) . $request->file('image_evento')->getClientOriginalName();
+        //     $ruta = storage_path() . '\app\public\imagenEvento/' . $nombre;
+        //     $ruta_storage = '/storage/imagenEvento/' . $nombre;
+        //     Image::make($request->file('image_evento'))->resize(1200, null, function ($constraint) {
+        //         $constraint->aspectRatio();
+        //     })->save($ruta);
+        // }
+
+
+        // $event->update([
+        //     'user_id' => auth()->user()->id,
+        //     'categoria_id' => $request->categoria_id,
+        //     'titulo_evento' => $request->titulo_evento,
+        //     'hora_evento' => $request->hora_evento,
+        //     'fecha_evento' => $request->fecha_evento,
+        //     'resumen' => $request->resumen,
+        //     'descripcion_evento' => $request->descripcion_evento,
+        //     'image_evento' => $ruta_storage,
+        //     'info_external' => $request->info_external,
+        //     'nombre_url' => $request->nombre_url,
+        //     'external_url' => $request->external_url,
+        //     'direccion' => $request->direccion,
+        //     'institucion' => $request->institucion,
+
+        // ]);
         if ($request->artists) {
 
             $event->artists()->sync($request->input('artists', []));
@@ -221,8 +287,15 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
 
-        $url = str_replace('storage', 'public', $event->image_evento);
-        Storage::delete($url);
+        $url = str_replace('https://ushuaiacultura.nyc3.cdn.digitaloceanspaces.com/imagenEvento', 'imagenEvento',  $event->image_evento);
+        Storage::disk('do')->delete($url);
+
+
+        //DESTROY CON STORAGE LOCAL
+        // $event = Event::findOrFail($id);
+
+        // $url = str_replace('storage', 'public', $event->image_evento);
+        // Storage::delete($url);
 
         $event->delete();
 

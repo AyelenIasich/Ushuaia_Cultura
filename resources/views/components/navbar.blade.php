@@ -10,7 +10,7 @@
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse text-center navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse text-center navbar-collapse  navbar-nav-scroll" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto  mb-2 mb-lg-0 ">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{ url('/' . '#main') }}">Inicio</a>

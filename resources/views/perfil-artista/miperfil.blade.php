@@ -25,6 +25,7 @@
                     </div>
                 @endcan
             @endif
+            @if (isset($artistaObras))
             @foreach ($artistaObras as $obras)
                 @if (count($obras) > 0)
                    <div class="container">
@@ -51,6 +52,7 @@
                     </div>
                 @endif
             @endforeach
+            @endif
 
             @if (isset($artista))
                 @foreach ($artistaObras as $obras)

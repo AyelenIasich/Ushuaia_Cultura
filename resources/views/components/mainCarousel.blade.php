@@ -24,9 +24,7 @@
                                             <div class="row justify-content-start">
                                                 <div
                                                     class="col col-md-5 col-lg-5 col-xl-4 col-xxl-3 text-start me-0 me-xxl-3 pe-0">
-                                                    <a href="{{ route('register') }}">
-                                                        <button class="btn-success btn" type="button">Quiero ser
-                                                            parte</button> </a>
+                                                    <a href="{{ route('register') }} "class="btn-success btn">Quiero ser parte</button> </a>
                                                 </div>
                                                 @role('admin')
                                                     <div class="col col-md-4  col-xxl-2  text-start ms-0 ps-0">
@@ -71,8 +69,7 @@
 
                                     <div class="row botones">
                                         <div class="col-12 text-center mt-2"><a class="btn-success btn"
-                                                href="{{ url('/#artistas') }}">Quiero ser parte
-                                            </a>
+                                            href="{{ route('register') }}">Quiero ser parte</a>
 
                                         </div>
                                         @role('admin')
