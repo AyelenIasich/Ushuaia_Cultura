@@ -18,7 +18,8 @@
                             </div>
                         </div>
 
-                        <form method="POST" action="{{ route('login') }}"class="login-card-form">
+                        {{-- <form method="POST" action="{{ route('login') }}"class="login-card-form"> --}}
+                            <form method="POST"action="{{ secure_url('/login') }}" class="login-card-form">
                             @csrf
 
 

@@ -37,13 +37,17 @@
 
                         @if (Route::has('login'))
                             <li class="nav-item ">
-                                <a class="   pe-md-3 nav-link" href="{{ route('login') }}">Ingresar</a>
+                                {{-- <a class="   pe-md-3 nav-link" href="{{ route('login') }}">Ingresar</a> --}}
+                                <a class="   pe-md-3 nav-link" href="{{ secure_url('/login') }}">Ingresar</a>
                             </li>
                         @endif
 
                         @if (Route::has('register'))
                             <li class="nav-item" id="registracion-enlace">
-                                <a class=" btn btn-success fs-6 pb-2  " href="{{ route('register') }}">
+                                {{-- <a class=" btn btn-success fs-6 pb-2  " href="{{ route('register') }}">
+                                    Registrarse
+                                </a> --}}
+                                <a class=" btn btn-success fs-6 pb-2  " href="{{ secure_url('/register') }}">
                                     Registrarse
                                 </a>
                             </li>
