@@ -135,8 +135,10 @@
                                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    {{-- LOCAL --}}
+                                    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> --}}
+                                    {{-- NUBE --}}
+                                    <form id="logout-form" action="{{  secure_url('/logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>

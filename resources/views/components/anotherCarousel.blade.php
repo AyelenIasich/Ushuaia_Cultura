@@ -11,7 +11,7 @@
         @hasrole('admin')
             <div class="row  mb-3 justify-content-end ">
                 <div class="col-lg-2 col-4 col-md-4 text-end me-3">
-                    <a href="{{ route('artistas.create') }}" class="btn btn-success btn-lg "><i class="fa-solid fa-plus"></i>
+                    <a href="{{ route('artistas.create') }}" class="btn btn-success  "><i class="fa-solid fa-plus"></i>
                         Nuevo</a>
                 </div>
             </div>
@@ -30,8 +30,12 @@
                                                         <div class="row justify-content-between p-0 m-0">
                                                             @hasrole('admin')
                                                                 <div class="col ms-2 text-start p-0 m-0 transform">
-                                                                    <form action="{{ route('artistas.destroy', $artist->id) }}"
-                                                                        class="formulario-eliminar" method="POST">
+                                                                    {{-- LOCAL --}}
+                                                                    {{-- <form action="{{ route('artistas.destroy', $artist->id) }}"
+                                                                        class="formulario-eliminar" method="POST"> --}}
+                                                                        {{-- NUBE --}}
+                                                                        <form action="{{ secure_url('/artistas.destroy', $artist->id) }}"
+                                                                            class="formulario-eliminar" method="POST">
                                                                         <button class="btn btn-outline-eliminar "><i
                                                                                 class="fa-solid fa-trash-can big "></i>
                                                                         </button>
