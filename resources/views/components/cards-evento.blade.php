@@ -94,7 +94,7 @@
                                     class="fa-solid fa-pen"></i> --}}
                                 Editar </a>
                                 {{-- nube --}}
-                                <a class="btn btn-guardar" href="{{ route('/events/'. $event->id.'edit') }}"><i
+                                <a class="btn btn-guardar" href="{{ route('/events/'. $event->id.'/edit') }}"><i
                                     class="fa-solid fa-pen"></i>
                                 Editar </a>
                         </div>
