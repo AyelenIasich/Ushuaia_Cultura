@@ -26,7 +26,7 @@ class MuralController extends Controller
     {
         $murales = Mural::paginate(6);
         $CategoriasMural = CategoriesMural::all();
-        return view('components.allmurales', compact('murales', 'CategoriasMural'))->with('i', (request()->input('page', 1) - 1) * $murales->perPage());
+        return view('components.allMurales', compact('murales', 'CategoriasMural'))->with('i', (request()->input('page', 1) - 1) * $murales->perPage());
     }
 
     public function CategoriaMural(CategoriesMural $categoria)
