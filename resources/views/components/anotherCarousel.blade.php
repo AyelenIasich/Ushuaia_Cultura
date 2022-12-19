@@ -31,12 +31,10 @@
                                                             @hasrole('admin')
                                                                 <div class="col ms-2 text-start p-0 m-0 transform">
                                                                     {{-- LOCAL --}}
-                                                                    {{-- <form action="{{ route('artistas.destroy', $artist->id) }}"
-                                                                        class="formulario-eliminar" method="POST"> --}}
+                                                                    <form action="{{ route('artistas.destroy', $artist->id) }}"
+                                                                        class="formulario-eliminar" method="POST">
 
-                                                                        {{-- NUBE --}}
-                                                                        <form action="{{ secure_url('artistas.destroy', $artist->id) }}"
-                                                                            class="formulario-eliminar" method="POST">
+
                                                                         <button class="btn btn-outline-eliminar "><i
                                                                                 class="fa-solid fa-trash-can big "></i>
                                                                         </button>

@@ -70,33 +70,25 @@
 
                         <div class="col ms-2 text-end">
                             {{-- DESTROY LOCAL HTTP  --}}
-                            {{-- <form action="{{ route('events.destroy', $event->id) }}" method="POST"
-                                class="formulario-eliminar">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-outline-volver"><i class="fa-solid fa-trash-can"></i>
-                                    Eliminar</button>
-                            </form> --}}
-                            {{-- DESTROY HTTPS NUBE --}}
-                            <form action="{{ secure_url('/events/'. $event->id) }}" method="POST"
+                            <form action="{{ route('events.destroy', $event->id) }}" method="POST"
                                 class="formulario-eliminar">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-outline-volver"><i class="fa-solid fa-trash-can"></i>
                                     Eliminar</button>
                             </form>
+
+
                         </div>
                     @endhasrole
                     @hasrole('admin')
                         <div class="col me-2">
                             {{-- local --}}
-                            {{-- <a class="btn btn-guardar" href="{{ route('events.edit', $event->id) }}"><i
-                                    class="fa-solid fa-pen"></i> --}}
-                                Editar </a>
-                                {{-- nube --}}
-                                <a class="btn btn-guardar" href="{{ route('/events/'. $event->id.'/edit') }}"><i
+                            <a class="btn btn-guardar" href="{{ route('events.edit', $event->id) }}"><i
                                     class="fa-solid fa-pen"></i>
                                 Editar </a>
+
+
                         </div>
 
                     </div>

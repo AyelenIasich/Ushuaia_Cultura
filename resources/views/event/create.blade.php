@@ -10,9 +10,9 @@
             @includeif('partials.errors')
             <div class="col-10 col-md-7 col-lg-5 mx-auto form p-4 mb-5">
                 {{-- local --}}
-                {{-- <form action="{{ route('events.store') }}" role="form" method="POST" enctype="multipart/form-data"> --}}
-                 {{-- nube --}}
-                 <form action="{{ secure_url('/events') }}" role="form" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('events.store') }}" role="form" method="POST" enctype="multipart/form-data">
+
+
                     @csrf
                     <h1 class="p mb-4">Crear Evento</h1>
                     @include('event.form')
