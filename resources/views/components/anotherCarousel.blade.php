@@ -33,8 +33,9 @@
                                                                     {{-- LOCAL --}}
                                                                     {{-- <form action="{{ route('artistas.destroy', $artist->id) }}"
                                                                         class="formulario-eliminar" method="POST"> --}}
+
                                                                         {{-- NUBE --}}
-                                                                        <form action="{{ secure_url('/artistas.destroy', $artist->id) }}"
+                                                                        <form action="{{ secure_url('artistas.destroy', $artist->id) }}"
                                                                             class="formulario-eliminar" method="POST">
                                                                         <button class="btn btn-outline-eliminar "><i
                                                                                 class="fa-solid fa-trash-can big "></i>
@@ -56,8 +57,6 @@
 
                                                         <div class="contenedor-imagen">
                                                             <div class="card_image">
-                                                                {{-- <img src=" {{ asset('cover') . '/' . $artist->cover_carousel }}"
-                                                                    alt="Imagen de los artistas" /> --}}
                                                                     <img src=" {{ asset($artist->cover_carousel)}}"
                                                                     alt="Imagen de los artistas" />
                                                                 <div class="col-12 ">

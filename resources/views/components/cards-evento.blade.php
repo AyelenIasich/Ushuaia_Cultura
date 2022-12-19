@@ -69,7 +69,16 @@
                     <div class="row justify-content-center align-items-center mt-3 mb-3 ">
 
                         <div class="col ms-2 text-end">
-                            <form action="{{ route('events.destroy', $event->id) }}" method="POST"
+                            {{-- DESTROY LOCAL HTTP  --}}
+                            {{-- <form action="{{ route('events.destroy', $event->id) }}" method="POST"
+                                class="formulario-eliminar">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-volver"><i class="fa-solid fa-trash-can"></i>
+                                    Eliminar</button>
+                            </form> --}}
+                            {{-- DESTROY HTTPS NUBE --}}
+                            <form action="{{ secure_url('events.destroy', $event->id) }}" method="POST"
                                 class="formulario-eliminar">
                                 @csrf
                                 @method('DELETE')
