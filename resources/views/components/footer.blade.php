@@ -41,12 +41,14 @@
                             <a class="navbar-brand pe-4 redes-icons footer-text"
                                 href="https://ar.linkedin.com/in/ayeiasich"><i
                                     class="display-6 fa-brands fa-linkedin"></i></a>
-                            <a class="navbar-brand ps-3 pe-4 redes-icons" href="https://ayeleniasichmyportfolio.web.app/"><img
-                                    class="footer-web" src=" {{ asset('otros\web2.svg') }}" alt=""
-                                    width="45" height="45" /></a>
-                            <a class="navbar-brand ps-4 redes-icons footer-text"
-                                href="https://github.com/AyelenIasich"><i
-                                    class="display-6  fa-brands fa-instagram"></i></a>
+                            <a class="navbar-brand ps-3 pe-4 redes-icons"
+                                href="https://ayeleniasichmyportfolio.web.app/"><img class="footer-web"
+                                    src=" {{ asset('otros\web2.svg') }}" alt="" width="45"
+                                    height="45" /></a>
+
+                            <a class="navbar-brand ps-4 redes-icons footer-text correo-artista" data-bs-toggle="popover"
+                                data-bs-title="Correo" data-bs-content="ayeleniasich@gmail.com"
+                                data-bs-placement="bottom"><i class="fa-regular fa-envelope display-6 "></i></a>
                         </div>
                     </div>
                 </div>
@@ -56,8 +58,10 @@
         </div>
         <div class="row pb-3 pt-4 align-items-center">
             <div class="col-12 text-center footer-text">
-          <a tabindex="0" data-bs-placement="top" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Agradecimientos" data-bs-content="Agradecimientos a Local Guides @FaridTDF por las fotos obtenidas de su blog.">Agradecimientos</a>
-        </div>
+                <a tabindex="0" data-bs-placement="top" role="button" data-bs-toggle="popover"
+                    data-bs-trigger="focus" data-bs-title="Agradecimientos"
+                    data-bs-content="Agradecimientos a Local Guides @FaridTDF por las fotos obtenidas de su blog.">Agradecimientos</a>
+            </div>
         </div>
     </div>
 </footer>

@@ -19,7 +19,7 @@
                             <div class="col">
                                 <form class="d-flex" role="search" method="GET" action="{{route('users.index')}}">
                                     <input class="form-control me-2" name="busqueda" type="search" placeholder="jorge o jorge@example.com" aria-label="Search">
-                                    <button class="btn btn-success" type="submit">Search</button>
+                                    <button class="btn btn-success" type="submit">Buscar</button>
                                   </form>
                             </div>
                         </div>

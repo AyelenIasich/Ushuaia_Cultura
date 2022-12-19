@@ -26,7 +26,7 @@
                                                         src="{{ asset($artista->cover_carousel)}}"
                                                         class="img_responsive" style="max-height:150px;, max-width:150px;">
                                                 </div>
-                                                <form action="{{ url('/artistas' . '/deletecover/' . $artista->id) }}"
+                                                {{-- <form action="{{ url('/artistas' . '/deletecover/' . $artista->id) }}"
                                                     method="post">
                                                     <div class="row">
                                                         <div class="col text-end">
@@ -37,7 +37,7 @@
                                                     </div>
                                                     @csrf
                                                     @method('delete')
-                                                </form>
+                                                </form> --}}
                                             </div>
 
                                         @endif

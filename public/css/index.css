@@ -485,7 +485,7 @@ a {
 }
 
 /*======================= Login ================= */
-
+#MiPerfil,
 #login,
 #murales-favoritos,
 #allEvents,
@@ -1287,6 +1287,18 @@ iframe {
     height: 62vh;
 }
 
+.mapa-foto img {
+
+    width: 100% !important;
+}
+
+#mapa a {
+    color: var(--main-color-blue-light);
+}
+
+#mapa a:hover {
+    color: rgba(62, 141, 166, 1);
+}
 /* Murales cards */
 
 .edition-delete {

@@ -57,11 +57,11 @@ Route::resource('categories-murales', CategoriesMuralController::class)->except(
 
 Route::resource('murales', MuralController::class)->except('show')->names('murales');
 // Publica
-Route::get('allmurales', [MuralController::class, 'allMurales'])->name('allmurales');
+Route::get('allmurales', [MuralController::class, 'allMurales'])->name('components.allMurales');
 Route::get('allmurales/{categoria}', [MuralController::class, 'CategoriaMural'])->name('mural.categoria');
 
 Route::delete('artistas/deleteimage/{id}', [ArtistaController::class, 'deleteimage'])->middleware('can:artistas.deleteimage')->name('artistas.deleteimage');
-Route::delete('artistas/deletecover/{id}', [MuraleController::class, 'deletecover'])->middleware('can:artistas.deletecover')->name('artistas.deletecover');
+Route::delete('artistas/deletecover/{id}', [ArtistaController::class, 'deletecover'])->middleware('can:artistas.deletecover')->name('artistas.deletecover');
 
 Route::group(['middleware' => ['auth']], function () {
 

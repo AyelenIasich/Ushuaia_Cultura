@@ -73,7 +73,7 @@
                 </div>
                 {{-- favorito --}}
                 <div class="row">
-                    <div class="col mt-5">
+                    <div class="col mt-3">
                         <div class="wishlist-content heart-event text-end ">
                             <input type="hidden" class="mural_id" value="{{ $murale->id }}">
                             @guest

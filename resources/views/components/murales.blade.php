@@ -8,11 +8,7 @@
         @include('components.cardMural')
         <div class="row">
             <div class="col mb-2 text-end">
-                <a href="{{ route('allmurales') }}">
-                    <button type="button" class="btn btn-success btn-lg mb-3">
-                        <i class="fa-solid fa-plus"></i> Ver más
-                    </button>
-                </a>
+                <a class="btn btn-success btn-lg mb-3" href="{{ route('components.allMurales') }}"><i class="fa-solid fa-plus"></i> Ver más</a>
             </div>
         </div>
 

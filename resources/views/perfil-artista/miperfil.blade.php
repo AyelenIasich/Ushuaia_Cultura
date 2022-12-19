@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <section id="MisEventos">
+    <section id="MiPerfil">
         <div class="container ">
 
 
@@ -26,32 +26,32 @@
                 @endcan
             @endif
             @if (isset($artistaObras))
-            @foreach ($artistaObras as $obras)
-                @if (count($obras) > 0)
-                   <div class="container">
-                        <div class="row justify-content-between">
-                            <div class="col-6  text-start">
+                @foreach ($artistaObras as $obras)
+                    @if (count($obras) > 0)
+                        <div class="container">
+                            <div class="row justify-content-between">
+                                <div class="col-6  text-start">
 
-                                <button data-bs-placement="top"
-                                    data-bs-content="Podrá eliminar el perfil una vez borrada las fotos de la galeria"
-                                    data-bs-title="Eliminar Perfil" data-bs-toggle="popover" class="btn btn-success"><i
-                                        class="fa-solid fa-trash-can big "></i>
-                                    Eliminar
-                                </button>
+                                    <button data-bs-placement="top"
+                                        data-bs-content="Podrá eliminar el perfil una vez borrada las fotos de la galeria"
+                                        data-bs-title="Eliminar Perfil" data-bs-toggle="popover" class="btn btn-success"><i
+                                            class="fa-solid fa-trash-can big "></i>
+                                        Eliminar
+                                    </button>
 
-                                </form>
-                            </div>
+                                    </form>
+                                </div>
 
 
-                            <div class="col-6 text-end p-0  ">
-                                <a class=" btn btn-success " href="{{ route('artistas.edit', $artista->id) }}">
-                                    <i class="fa-solid fa-pen big "></i>
-                                </a>
+                                <div class="col-6 text-end p-0  ">
+                                    <a class=" btn btn-success " href="{{ route('artistas.edit', $artista->id) }}">
+                                        <i class="fa-solid fa-pen big "></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endif
-            @endforeach
+                    @endif
+                @endforeach
             @endif
 
             @if (isset($artista))
@@ -139,11 +139,13 @@
 
                         </div>
                     </div>
-                    <div class="col-12  col-md-6 text-center">
-                        <div class="col pt-3">
-                            <img src=" {{ asset($artista->images[0]->image) }}" class="img_responsive artista_img">
+                    @if (isset($artista->images[0]))
+                        <div class="col-12  col-md-6 text-center">
+                            <div class="col pt-3">
+                                <img src=" {{ asset($artista->images[0]->image) }}" class="img_responsive artista_img">
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             @endif
 

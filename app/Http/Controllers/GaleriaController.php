@@ -43,34 +43,51 @@ class GaleriaController extends Controller
         ];
         $this->validate($request, $campos);
 
-
+        //STORE NUBE SPACES DIGITAL OCEAN
         if ($request->hasFile('image_obra')) {
             $file = $request->file('image_obra');
             $imageName =  Str::random(10) . $file->getClientOriginalName();
-            $ruta = storage_path() . '\app\public\obras/' . $imageName;
-            $ruta_storage = '/storage/obras/' . $imageName;
-            Image::make($file)->resize(1200, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($ruta);
-
+            $store = Storage::disk('do')->put('obras/' . $imageName,  file_get_contents($file->getRealPath()), 'public');
+            $url = Storage::disk('do')->url('obras/' .  $imageName);
+            $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
 
             $galeria = new Galeria([
                 'artista_id' => $request->artista_id,
-                'image_obra' => $ruta_storage,
+                'image_obra' => $cdn_url,
                 'titulo_obra' => $request->titulo_obra,
                 'descripcion_obra' => $request->descripcion_obra,
                 'fecha_creacion' => $request->fecha_creacion,
             ]);
             $galeria->save();
         }
+
+        // STORE STORAGE LOCAL
+        // if ($request->hasFile('image_obra')) {
+        //     $file = $request->file('image_obra');
+        //     $imageName =  Str::random(10) . $file->getClientOriginalName();
+        //     $ruta = storage_path() . '\app\public\obras/' . $imageName;
+        //     $ruta_storage = '/storage/obras/' . $imageName;
+        //     Image::make($file)->resize(1200, null, function ($constraint) {
+        //         $constraint->aspectRatio();
+        //     })->save($ruta);
+
+
+        //     $galeria = new Galeria([
+        //         'artista_id' => $request->artista_id,
+        //         'image_obra' => $ruta_storage,
+        //         'titulo_obra' => $request->titulo_obra,
+        //         'descripcion_obra' => $request->descripcion_obra,
+        //         'fecha_creacion' => $request->fecha_creacion,
+        //     ]);
+        //     $galeria->save();
+        // }
         $id = $galeria->id;
 
         return redirect()->route('galerias.edit', $id)->with('creado', 'ok');
-
     }
 
 
-// FUNCION STORE ANTIGUA
+    // FUNCION STORE ANTIGUA
     // public function store(Request $request)
     // {
     //     request()->validate(Galeria::$rules);
@@ -116,8 +133,14 @@ class GaleriaController extends Controller
     public function update(Request $request, $id)
     {
         $galeria = Galeria::findOrFail($id);
-        $url = str_replace('storage', 'public', $galeria->image_obra);
-        $ruta_storage = $galeria->image_obra;
+
+        // UPDATE NUBE SPACES DIGITAL OCEAN
+        $url = str_replace('https://ushuaiacultura.nyc3.cdn.digitaloceanspaces.com/obras', 'obras',  $galeria->image_obra);
+        $cdn_url = $galeria->image_obra;
+
+        //UPDATE CON STORAGE LOCAL
+        // $url = str_replace('storage', 'public', $galeria->image_obra);
+        // $ruta_storage = $galeria->image_obra;
 
         $campos = [
             'artista_id' => 'required|string|max:100',
@@ -130,28 +153,53 @@ class GaleriaController extends Controller
         }
         $this->validate($request, $campos);
 
+        // UPDATE NUBE SPACES DIGITAL OCEAN
 
         if ($request->hasFile("image_obra")) {
-            if (Storage::exists($url)) {
-                Storage::delete($url);
+            if (Storage::disk('do')->exists($url)) {
+                Storage::disk('do')->delete($url);
             }
+
+
             $file = $request->file("image_obra");
             $imageName =  Str::random(10) . $file->getClientOriginalName();
-            $ruta = storage_path() . '\app\public\obras/' . $imageName;
-            $ruta_storage = '/storage/obras/' . $imageName;
-            Image::make($file)->resize(1200, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($ruta);
+            $store = Storage::disk('do')->put('obras/' . $imageName,  file_get_contents($file->getRealPath()), 'public');
+            $url = Storage::disk('do')->url('obras/' .  $imageName);
+            $cdn_url = str_replace('digitaloceanspaces', 'cdn.digitaloceanspaces', $url);
         }
 
         $galeria->update([
             'artista_id' => $request->artista_id,
-            'image_obra' => $ruta_storage,
+            'image_obra' => $cdn_url,
             'titulo_obra' => $request->titulo_obra,
             'descripcion_obra' => $request->descripcion_obra,
             'fecha_creacion' => $request->fecha_creacion,
 
         ]);
+
+
+        //UPDATE CON STORAGE LOCAL
+        // if ($request->hasFile("image_obra")) {
+        //     if (Storage::exists($url)) {
+        //         Storage::delete($url);
+        //     }
+        //     $file = $request->file("image_obra");
+        //     $imageName =  Str::random(10) . $file->getClientOriginalName();
+        //     $ruta = storage_path() . '\app\public\obras/' . $imageName;
+        //     $ruta_storage = '/storage/obras/' . $imageName;
+        //     Image::make($file)->resize(1200, null, function ($constraint) {
+        //         $constraint->aspectRatio();
+        //     })->save($ruta);
+        // }
+
+        // $galeria->update([
+        //     'artista_id' => $request->artista_id,
+        //     'image_obra' => $ruta_storage,
+        //     'titulo_obra' => $request->titulo_obra,
+        //     'descripcion_obra' => $request->descripcion_obra,
+        //     'fecha_creacion' => $request->fecha_creacion,
+
+        // ]);
 
         return redirect()->route('galerias.edit', $id)->with('actualizado', 'ok');
     }
@@ -160,12 +208,20 @@ class GaleriaController extends Controller
 
     public function destroy($id)
     {
-        $galeria = Galeria::find($id);
 
-        $url = str_replace('storage', 'public', $galeria->image_obra);
-        Storage::delete($url);
+        $galeria = Galeria::find($id);
+        $url = str_replace('https://ushuaiacultura.nyc3.cdn.digitaloceanspaces.com/obras', 'obras',  $galeria->image_obra);
+        Storage::disk('do')->delete($url);
 
         $galeria->delete();
+
+
+        // $galeria = Galeria::find($id);
+
+        // $url = str_replace('storage', 'public', $galeria->image_obra);
+        // Storage::delete($url);
+
+        // $galeria->delete();
         return back()->with('eliminar', 'eliminado');
     }
 }
