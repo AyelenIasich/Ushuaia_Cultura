@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            @include('components.cardMural')
+            {{-- @include('components.cardMural') --}}
             <nav aria-label="Page navigation " class="mt-3">
                 <ul class="pagination d-flex justify-content-end">
                     {!! $murales->links() !!}
