@@ -1292,11 +1292,11 @@ iframe {
     width: 100% !important;
 }
 
-#mapa a {
+#mapa a,.mural-enlace {
     color: var(--main-color-blue-light);
 }
 
-#mapa a:hover {
+#mapa a:hover, .mural-enlace:hover{
     color: rgba(62, 141, 166, 1);
 }
 /* Murales cards */
