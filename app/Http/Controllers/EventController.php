@@ -33,15 +33,15 @@ class EventController extends Controller
 
         if (!Auth::check()) {
 
-            $events = Event::where('fecha_evento', '>=', now())->with(['artists'])->paginate(6);
+            $events = Event::where('fecha_evento', '>=', now())->with(['artists'])->paginate(4);
         }
         if (Auth::check()) {
             if (auth()->user()->id == 1) {
-                $events = Event::with(['artists'])->paginate(6);
+                $events = Event::with(['artists'])->paginate(4);
             }
         }
         if (Auth::check()) {
-            $events = Event::where('fecha_evento', '>=', now())->with(['artists'])->paginate(6);
+            $events = Event::where('fecha_evento', '>=', now())->with(['artists'])->paginate(4);
         }
 
 
@@ -55,15 +55,15 @@ class EventController extends Controller
 
         if (!Auth::check()) {
 
-            $events = Event::where('categoria_id', $categoria->id)->where('fecha_evento', '>=', now())->with(['artists'])->paginate(6);
+            $events = Event::where('categoria_id', $categoria->id)->where('fecha_evento', '>=', now())->with(['artists'])->paginate(4);
         }
         if (Auth::check()) {
             if (auth()->user()->id == 1) {
-                $events = Event::where('categoria_id', $categoria->id)->with(['artists'])->paginate(6);
+                $events = Event::where('categoria_id', $categoria->id)->with(['artists'])->paginate(4);
             }
         }
         if (Auth::check()) {
-            $events = Event::where('categoria_id', $categoria->id)->where('fecha_evento', '>=', now())->with(['artists'])->paginate(6);
+            $events = Event::where('categoria_id', $categoria->id)->where('fecha_evento', '>=', now())->with(['artists'])->paginate(4);
         }
 
 
@@ -75,7 +75,7 @@ class EventController extends Controller
 
     public function misEventos()
     {
-        $events = Event::where('user_id', auth()->user()->id)->with(['artists'])->paginate(10);
+        $events = Event::where('user_id', auth()->user()->id)->with(['artists'])->paginate(4);
 
 
         return view('event.misEventos', compact('events'))->with('i', (request()->input('page', 1) - 1) * $events->perPage());
