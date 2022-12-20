@@ -37,26 +37,19 @@
                                         </div>
                                         <div class="col-9 offset-3  align-self-center">
                                             <div class="card-body ">
-                                                <h5 class="card-title text-center mt-2 mb-2 bold">
-                                                    {{ $wish->murales_favoritos->titulo_mural }}
-                                                </h5>
-                                                <p class="card-text mb-1 bold mt-2">
-                                                    {{ $wish->murales_favoritos->categoriesMurale->nombre }}</p>
+                                                        {{-- <h5 class="card-title text-center mt-2 mb-2 bold">{{ $wish->murales_favoritos->titulo_mural }}
+                                                    </h5> --}}
+                                            <p class="card-text text-end mb-0 bold mt-2">{{ $wish->murales_favoritos->categoriesMurale->nombre }}</p>
 
-                                                @if (count($wish->murales_favoritos->artists) > 0)
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <p><span class="card-text bold ">
-                                                                    Artistas:
-                                                                </span>
-                                                                @foreach ($wish->murales_favoritos->artists as $artist)
-                                                                    <span class="artistas-nombres me-1">
-                                                                        {{ $artist->nombre }}
-                                                                    </span>
-                                                                @endforeach
+
+                                       
+                                             @if (isset($wish->murales_favoritos->artists))
+                                                  <div class="row">
+                                                      <div class="col">
+                                                            <p>@foreach ($wish->murales_favoritos->artists as $artist)<div class="artistas-nombres  me-1 d-inline">{{ $artist->nombre }}</div>@endforeach
                                                             </p>
                                                         </div>
-                                                    </div>
+                                                   </div>
                                                 @endif
 
                                                 <div class="col grey">
