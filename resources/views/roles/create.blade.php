@@ -14,7 +14,7 @@
                     {!! Form::open(['route'=>'roles.store']) !!}
                     <h1 class="p mb-4">Crear rol</h1>
                     @include('roles.form')
-                    <h3 class="p mt-4">Lista de permisos</h3>
+                   
                     {!! Form::close() !!}
                 {{-- </form> --}}
             </div>
