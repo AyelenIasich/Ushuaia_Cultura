@@ -6,7 +6,7 @@
 @section('content')
     <section id="murales">
         <div class="container mt-md-5 pt-md-5 mb-5 pb-5">
-            <div class="text-center mt-2 mt-md-5 mb-md-5">
+            <div class="text-center pt-5 mt-md-5 mb-md-5">
                 <h1 class="section-title-01 text-center display-4">Totalidad de murales</h1>
                 <h2 class="section-title-02 text-center display-6">Totalidad de murales</h2>
             </div>
