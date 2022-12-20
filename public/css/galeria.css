@@ -536,3 +536,19 @@ font-size: 1.5em;
 .small{
     font-size:0.7em!important;
 }
+
+#murales-favoritos .card {
+    background: var(--main-card) !important;
+    backdrop-filter: blur(1rem);
+    box-shadow: 0 5px 10px -5px rgba(0 0 0 / 30%);
+    border-bottom: 4px solid var(--main-color-blue-light);
+    border-radius: 6px;
+    transition: 0.5s ease;
+}
+#mapa a, .mural-enlace {
+    color: var(--main-color-blue-light)!important;
+}
+
+#mapa a:hover, .mural-enlace:hover {
+    color: rgba(62, 141, 166, 1)!important;
+}
