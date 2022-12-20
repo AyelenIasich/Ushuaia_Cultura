@@ -11,7 +11,7 @@
     </div>
 </div>
 @foreach ($permissions as $permission)
-    <div>
+    <div class="pt-3">
         <label>
             {!! Form::checkbox('permissions[]', $permission->id, null, ['class' => 'mr-1' ] ) !!}
             {{ $permission->description }}
