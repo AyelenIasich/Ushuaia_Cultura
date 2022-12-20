@@ -22,25 +22,18 @@
 
                     <img src="{{ asset($murale->image_mural) }}" class="card-img-top mural-img" alt="Imagen del mural">
                     <div class="card-body ">
-                        <h5 class="card-title text-center mt-2 mb-2 bold">{{ $murale->titulo_mural }}
-                        </h5>
-                        <p class="card-text mb-1 bold mt-2">{{ $murale->categoriesMurale->nombre }}</p>
+                           {{-- <h5 class="card-title text-center mt-2 mb-2 bold">{{ $murale->titulo_mural }}
+                        </h5>--}}
+                        <p class="card-text mb-0 text-end bold mt-2">{{ $murale->categoriesMurale->nombre }}</p>
 
-                        {{-- @if (isset($murale->categoriesMurale->artists))
+                          @if (isset($murale->artists))
                             <div class="row">
-                                <div class="col">
-                                    <p><span class="card-text bold ">
-                                            Artistas:
-                                        </span>
-                                        @foreach ($murale->categoriesMurale->artists as $artist)
-                                            <span class="artistas-nombres me-1">
-                                                {{ $artist->nombre }}
-                                            </span>
-                                        @endforeach
+                               <div class="col">
+                                    <p>@foreach ($murale->artists as $artist)<div class="artistas-nombres  me-1 d-inline">{{ $artist->nombre }}</div>@endforeach
                                     </p>
                                 </div>
                             </div>
-                        @endif --}}
+                        @endif 
 
                         <div class="col grey">
                             <p class="card-text text-end"><i class="fa-solid fa-location-pin"></i>
