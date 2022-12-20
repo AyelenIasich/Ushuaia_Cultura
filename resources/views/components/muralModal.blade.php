@@ -55,12 +55,12 @@
                         </div>
                     </div>
                 @endif
-                @if (!empty($murale->info_external))
+                           @if (asset($murale->info_external))
                     <div class="row mb-3">
                         <div class="col">
-                            <p class="card-text mb-1 grey"> {{ $event->info_external }}</p><a
-                                href="{{ $event->external_url }}" target="_blank" cursor="pointer"
-                                aria-label='Ir a enlace externo'>{{ $event->nombre_url }}</a>
+                            <p class="card-text mb-1 grey d-inline "> {{ $murale->info_externa }}</p><a class="mural-enlace d-inline"
+                                href="{{ $murale->external_url }}" target="_blank" cursor="pointer"
+                                aria-label='Ir a enlace externo'> {{ $murale->nombre_url }}</a>
                         </div>
                     </div>
                 @endif
