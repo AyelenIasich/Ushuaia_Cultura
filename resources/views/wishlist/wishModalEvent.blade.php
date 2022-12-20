@@ -56,12 +56,12 @@
                         </div>
                     </div>
                 @endif
-                @if (!empty($wish->eventos_favoritas->info_external))
+               @if (!empty($wish->eventos_favoritas->info_external))
                     <div class="row mb-3">
                         <div class="col">
-                            <p class="card-text mb-1 grey"> {{ $wish->eventos_favoritas->info_external }}</p><a
+                            <p class="card-text mb-1 grey  d-inline"> {{ $wish->eventos_favoritas->info_external }}</p><a class="mural-enlace d-inline"
                                 href="{{ $wish->eventos_favoritas->external_url }}" target="_blank" cursor="pointer"
-                                aria-label='Ir a enlace externo'>{{ $wish->eventos_favoritas->nombre_url }}</a>
+                                aria-label='Ir a enlace externo'> {{ $wish->eventos_favoritas->nombre_url }}</a>
                         </div>
                     </div>
                 @endif
