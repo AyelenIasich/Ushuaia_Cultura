@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col">
+    <div class="col pb-3">
         <div class="form-group requerido">
             <label for="name" class="form-label mb-2  pt-2">Nombre</label>
             <input type="text" value="{{ isset($role->name) ? $role->name : old('name') }}" class="form-control"
@@ -11,7 +11,7 @@
     </div>
 </div>
 @foreach ($permissions as $permission)
-    <div class="pt-3">
+    <div >
         <label>
             {!! Form::checkbox('permissions[]', $permission->id, null, ['class' => 'mr-1' ] ) !!}
             {{ $permission->description }}
