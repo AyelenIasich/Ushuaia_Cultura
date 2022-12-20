@@ -59,9 +59,9 @@
                 @if (!empty($event->info_external))
                     <div class="row mb-3">
                         <div class="col">
-                            <p class="card-text mb-1 grey"> {{ $event->info_external }}</p><a
+                            <p class="card-text mb-1 grey d-inline"> {{ $event->info_external }}</p><a class=" mural-enlace d-inline"
                                 href="{{ $event->external_url }}" target="_blank" cursor="pointer"
-                                aria-label='Ir a enlace externo'>{{ $event->nombre_url }}</a>
+                                aria-label='Ir a enlace externo'> {{ $event->nombre_url }}</a>
                         </div>
                     </div>
                 @endif
