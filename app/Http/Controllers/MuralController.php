@@ -24,14 +24,14 @@ class MuralController extends Controller
 
     public function allMurales()
     {
-        $murales = Mural::paginate(4);
+        $murales = Mural::paginate(6);
         $CategoriasMural = CategoriesMural::all();
         return view('components.allMurales', compact('murales', 'CategoriasMural'))->with('i', (request()->input('page', 1) - 1) * $murales->perPage());
     }
 
     public function CategoriaMural(CategoriesMural $categoria)
     {
-        $murales = Mural::where('categoria_murales_id', $categoria->id)->latest('id')->paginate(4);
+        $murales = Mural::where('categoria_murales_id', $categoria->id)->latest('id')->paginate(6);
         $CategoriasMural = CategoriesMural::all();
         $CategoriaSelecta = CategoriesMural::where('id', $categoria->id)->get();
         return view('murale.categoria', compact('murales', 'CategoriasMural', 'CategoriaSelecta'));
@@ -39,7 +39,7 @@ class MuralController extends Controller
 
     public function index()
     {
-        $murales = Mural::where('user_id', auth()->user()->id)->with(['artists'])->paginate(4);
+        $murales = Mural::where('user_id', auth()->user()->id)->with(['artists'])->paginate(6);
         return view('murale.index', compact('murales'))->with('i', (request()->input('page', 1) - 1) * $murales->perPage());
     }
 
