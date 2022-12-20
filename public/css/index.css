@@ -795,7 +795,7 @@ a:visited {
 }
 
 /* ====================== cards  ========================*/
-#allEvents .card,#murales-favoritos .card,
+#allEvents .card, #murales-favoritos .card,
 #murales .card,
 #eventos .card,
 #wishlist-indexevent .card,
