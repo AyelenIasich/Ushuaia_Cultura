@@ -3,9 +3,9 @@
 @section('content')
     <section id="wishlist-indexevent">
         <div class="container pt-md-5 mb-5 pb-5">
-            <div class="text-center mt-md-5 mb-md-5">
-                <h1 class="section-title-01 text-center display-4">Mis Eventos Favoritos</h1>
-                <h2 class="section-title-02 text-center display-6">Mis Eventos Favoritos</h2>
+            <div class="text-center mt-md-5 pt-5 mb-md-5">
+                <h1 class="section-title-01 text-center display-4">Mis Eventos </h1>
+                <h2 class="section-title-02 text-center display-6">Mis Eventos</h2>
             </div>
 
             <div class="row row-cols-lg-2 mt-md-5 mb-md-5">
