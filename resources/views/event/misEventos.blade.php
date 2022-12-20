@@ -53,7 +53,7 @@
                                                 </div>
                                                 <p class="card-text mb-1 bold mt-2">{{ $event->category->nombre }}</p>
 
-                                                @if (count($event->artists) > 0)
+                                               {{-- @if (count($event->artists) > 0)
                                                     <div class="row">
                                                         <div class="col">
                                                             <p><span class="card-text bold ">
@@ -67,7 +67,7 @@
                                                             </p>
                                                         </div>
                                                     </div>
-                                                @endif
+                                                @endif --}}
                                                 <p class="card-text mb-1 grey">{{ $event->resumen }}
                                                 </p>
                                                 <div class="col grey">
