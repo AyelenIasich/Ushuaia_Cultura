@@ -21,12 +21,12 @@
 
                             <div class="row">
                                 <div class="col mb-2 mt-2 ">
-                                    <p class="card-text bold ">{{ $wish->murales_favoritos->categoriesMurale->nombre }}
+                                       <p class="card-text bold text-end ">{{ $wish->murales_favoritos->categoriesMurale->nombre }}
                                     </p>
                                 </div>
                             </div>
 
-                            @if (count($wish->murales_favoritos->artists) > 0)
+                         @if (count($wish->murales_favoritos->artists) > 0)
                                 <div class="row">
                                     <div class="col mb-2">
 
@@ -49,6 +49,7 @@
                                 </div>
                             @endif
 
+
                             @if (asset($wish->murales_favoritos->descripcion_mural))
                                 <div class="row mb-3">
                                     <div class="col">
@@ -57,12 +58,12 @@
                                     </div>
                                 </div>
                             @endif
-                            @if (!empty($wish->murales_favoritos->info_external))
+                           @if (!empty($wish->murales_favoritos->info_externa))
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <p class="card-text mb-1 grey"> {{ $wish->murales_favoritos->info_external }}
+                                        <p class="card-text mb-1 grey d-inline"> {{ $wish->murales_favoritos->info_externa }}
                                         </p><a href="{{ $wish->murales_favoritos->external_url }}" target="_blank"
-                                            cursor="pointer"
+                                            cursor="pointer"class="mural-enlace d-inline"
                                             aria-label='Ir a enlace externo'>{{ $wish->murales_favoritos->nombre_url }}</a>
                                     </div>
                                 </div>
