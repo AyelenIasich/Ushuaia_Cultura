@@ -79,15 +79,7 @@
     </div>
 </div>
 
-@if (isset($event->image_evento))
-    <div class="row">
-        <div class="col mt-3">
-            <p>
-                Nombre de la imagen anterior: {{ $event->image_evento }}
-            </p>
-        </div>
-    </div>
-@endif
+
 @if (isset($event))
     <div class="row">
         <div class="col mb-3">
