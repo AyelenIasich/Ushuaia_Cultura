@@ -47,7 +47,7 @@
                                     height="45" /></a>
 
                             <a class="navbar-brand ps-4 redes-icons footer-text correo-artista" data-bs-toggle="popover"
-                                data-bs-title="Correo" data-bs-content="ayeleniasich@gmail.com"
+                                data-bs-title="Correo" data-bs-content="ayeleniasich1992@gmail.com"
                                 data-bs-placement="bottom"><i class="fa-regular fa-envelope display-6 "></i></a>
                         </div>
                     </div>
