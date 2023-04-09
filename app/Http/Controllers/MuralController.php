@@ -22,9 +22,10 @@ class MuralController extends Controller
         $this->middleware('can:murales.destroy')->only('destroy');
     }
 
+// murales en la seccion de ver mas . Totalidad de murales
     public function allMurales()
     {
-        $murales = Mural::paginate(6);
+        $murales = Mural::latest('created_at')->paginate(6);
         $CategoriasMural = CategoriesMural::all();
         return view('components.allMurales', compact('murales', 'CategoriasMural'))->with('i', (request()->input('page', 1) - 1) * $murales->perPage());
     }
