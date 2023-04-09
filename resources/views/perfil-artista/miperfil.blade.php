@@ -3,10 +3,10 @@
 
 @section('content')
     <section id="MiPerfil">
-        <div class="container ">
+        <div class="container mt-2 mt-md-5  pt-5 pt-md-5 ">
 
 
-            <div class="text-center mt-2 mt-md-5">
+            <div class="text-center mt-2 mt-md-5 ">
                 <h1 class="section-title-01 text-center display-4">Mi perfil</h1>
                 <h2 class="section-title-02 text-center display-6">Mi perfil</h2>
             </div>
