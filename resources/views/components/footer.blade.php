@@ -56,12 +56,6 @@
 
 
         </div>
-        <div class="row pb-3 pt-4 align-items-center">
-            <div class="col-12 text-center footer-text">
-                <a tabindex="0" data-bs-placement="top" role="button" data-bs-toggle="popover"
-                    data-bs-trigger="focus" data-bs-title="Agradecimientos"
-                    data-bs-content="Agradecimientos a Local Guides @FaridTDF por las fotos obtenidas de su blog.">Agradecimientos</a>
-            </div>
-        </div>
+       
     </div>
 </footer>
