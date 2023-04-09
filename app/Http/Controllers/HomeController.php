@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
        $home['home'] = Home::first();
         $artistas['artistas'] = Artista::all();
-        $murales = Mural::paginate(6);
+        $murales = Mural::latest('created_at')->paginate(6);
         $events = Event::where('fecha_evento', '>=', now())->with(['artists'])->paginate(4);
 
          return view('home', compact('home', 'artistas','events', 'murales'));
