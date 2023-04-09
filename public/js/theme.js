@@ -21,3 +21,12 @@ if (savedTheme) {
     );
     themeBtn.classList[savedIcon === "moon" ? "add" : "remove"]("moon");
 }
+//Collapse navbar menu touching outside of the navbar
+$(document).on("click", function (e) {
+    if (
+        $(e.target).is(".navbar-collapse") &&
+        $(".navbar-collapse").hasClass("show")
+    ) {
+        $(".navbar-collapse").collapse("hide");
+    }
+});
