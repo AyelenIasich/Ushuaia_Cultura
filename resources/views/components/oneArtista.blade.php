@@ -8,7 +8,7 @@
 
             </div>
         </div>
-        <div class="row artista_row mt-3 ">
+        <div class="row artista_row mt-5 mt-md-3 ">
             <div class="row d-md-none">
                 <div class="col">
                     <div class="text-center mt-md-2 ">
