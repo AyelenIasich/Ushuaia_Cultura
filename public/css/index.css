@@ -282,7 +282,7 @@ main {
     }
 
     #main {
-        margin-top: 3.5em !important;
+        padding-top: 3.5em !important;
     }
     #main .carousel-inner img {
         height: 40vh;
@@ -360,7 +360,7 @@ main {
     }
 }
 #main {
-    margin-top: 4.1em;
+    padding-top: 4.1em;
 }
 
 #main .carousel-inner img {
@@ -806,6 +806,7 @@ a:visited {
     border-bottom: 4px solid var(--main-color-blue-light);
     border-radius: 6px;
     transition: 0.5s ease;
+    cursor: pointer;
 }
 
 #murales .card:hover,
