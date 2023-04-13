@@ -44,21 +44,15 @@
         @include('components.theme-button')
          @include('components.mainCarousel')
     </div>
-
-
-
-
     <div data-bs-spy="scroll" data-bs-target="#navbar-example2">
         @include('components.msgBienvenida')
         @include('components.anotherCarousel')
-        @include('components.eventosList')
-
-
-        @include('components.mapa')
         @include('components.murales')
-
+        @include('components.mapa')
+        @include('components.eventosList') 
         @include('components.footer')
     </div>
+    
     @yield('content')
 
     {{-- Reveal scroll js --}}
