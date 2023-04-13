@@ -54,7 +54,7 @@
               {{-- Vista en dispositivos moviles --}}
             <div class="container-fluid">
                 <div class="row d-lg-none ">
-                    <div class="col ms-3 me-3">
+                    <div class="col ms-3 me-3 main-card">
                         <div class="card">
                             <div class="card-body">
 
