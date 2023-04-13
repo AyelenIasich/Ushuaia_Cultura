@@ -51,6 +51,7 @@
 
 
             </div>
+              {{-- Vista en dispositivos moviles --}}
             <div class="container-fluid">
                 <div class="row d-lg-none ">
                     <div class="col ms-3 me-3">
@@ -60,7 +61,7 @@
                                 <div class="content ">
 
                                     @foreach ($home as $hom)
-                                        <h1 class=" card-title text-center"><span>Ushuaia,</span>{{ $hom->titulo }}
+                                        <h1 class=" card-title text-center"><span>Ushuaia, </span>{{ $hom->titulo }}
                                         </h1>
                                         <div class="mt-3 card-text descripcion text-center">
                                             <p>{{ $hom->descripcion }}</p>
