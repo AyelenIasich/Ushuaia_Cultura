@@ -31,6 +31,10 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    {{-- Reveal scroll js --}}
+    <script src="https://unpkg.com/scrollreveal"></script>
+    
     <title>Ushuaia Cultura</title>
 </head>
 
@@ -57,6 +61,8 @@
     </div>
     @yield('content')
 
+    {{-- Reveal scroll js --}}
+    <script src="{{ URL::asset('js/scroll-reveal.js') }}"></script>
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
