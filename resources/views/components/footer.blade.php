@@ -24,7 +24,7 @@
                         <ul class="p-0">
                             <li><a href="{{ url('/' . '#main') }}">Home</a></li>
                             <li><a href="{{ url('/' . '#artistas') }}">Artistas</a></li>
-                            <li><a href="{{ url('/' . '#eventos') }}">Eventos</a></li>
+                            <li><a href="{{ url('/' . '#murales') }}">Murales</a></li>
                             <li><a href="{{ url('/' . '#mapa') }}">Mapa</a></li>    
                         </ul>
                     </div>
