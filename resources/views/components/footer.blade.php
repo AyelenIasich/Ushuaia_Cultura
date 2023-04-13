@@ -3,19 +3,19 @@
         <div class="row row-xl-3 pb-4">
             <div class="col-12 col-md-4">
                 <div class="row ps-md-4">
-                    <div class="col-12 title pb-2 text-center ">
+                    <div class="col-12 title pb-2 text-center navbar-brand-footer">
                         <a class="navbar-brand" href="#">
                             <span class="ushuaia d-inline-block display-6 ">USHUAIA</span>
                             <span class="cultura d-inline-block display-6 cultura-footer">Cultura</span>
                         </a>
 
                     </div>
-                    <div class="col text-center mt-4 ">
+                    <div class="col text-center mt-4 navbar-mountain-footer">
                         <img src=" {{ asset('otros\logito.png') }}"width="250" height="90" alt="logo">
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-4 pt-5 pt-md-0">
+            <div class="col-12 col-md-4 pt-5 pt-md-0 footer-group">
                 <div class="row  text-center">
                     <div class="col-12 title pb-2 text-center ">
                         <h3 class="">Links</h3>
@@ -25,13 +25,12 @@
                             <li><a href="{{ url('/' . '#main') }}">Home</a></li>
                             <li><a href="{{ url('/' . '#artistas') }}">Artistas</a></li>
                             <li><a href="{{ url('/' . '#eventos') }}">Eventos</a></li>
-                            <li><a href="#">Mapa</a></li>
-                            <li><a href="#">Contacto</a></li>
+                            <li><a href="{{ url('/' . '#mapa') }}">Mapa</a></li>    
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-4 pt-5 pt-md-0">
+            <div class="col-12 col-md-4 pt-5 pt-md-0 footer-group">
                 <div class="row ">
                     <div class="col-12 title pb-3  text-center">
                         <h3 id="contacto" class="h4">¿Quieres contactarnos?</h3>
@@ -53,9 +52,6 @@
                     </div>
                 </div>
             </div>
-
-
-        </div>
-       
+        </div>       
     </div>
 </footer>
