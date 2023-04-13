@@ -20,13 +20,13 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ url('/' . '#eventos') }}">Eventos</a>
+                        <a class="nav-link" aria-current="page" href="{{ url('/' . '#murales') }}">Murales</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{ url('/' . '#mapa') }}">Mapa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ url('/' . '#murales') }}">Murales</a>
+                         <a class="nav-link" aria-current="page" href="{{ url('/' . '#eventos') }}">Eventos</a>                       
                     </li>
                     {{-- <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="#">Contacto</a>
