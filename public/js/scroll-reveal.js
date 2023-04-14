@@ -23,7 +23,7 @@ ScrollReveal().reveal("#carousel", {
 });
 ScrollReveal().reveal(".main-card", {
     delay: 500,
-    origin: "right",
+    origin: "right", distance:"25px"
 });
 
 ScrollReveal().reveal("#main .overlay p, #main .card .card-text p", {
